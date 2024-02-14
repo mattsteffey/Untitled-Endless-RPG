@@ -12,4 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca932bafeb8e2084193e07ca6e363166, type: 3}
   m_Name: HumidityNoise
   m_EditorClassIdentifier: 
-  x: 0
+  mapWidth: 500
+  mapHeight: 500
+  noiseScale: 25
+  octaves: 3
+  persistance: 0
+  lacunarity: 1
+  offset: {x: 0, y: 0}

@@ -48,11 +48,11 @@ public class MapGenerator : MonoBehaviour {
 
             if (drawMode == DrawMode.NoiseMaps) {
                 // This runs the function DrawNoiseMap with our noiseMap we recieved back from Noise.GenerateNoiseMap
-                display.DrawTexture(TextureGenerator.TextureFromHeightMap(noiseMap));
+                display.DrawTexture(TextureGenerator.TextureFromHeightMap(noiseMap), i);
                 }
 
             if (drawMode == DrawMode.ColorMap) {
-                display.DrawTexture(TextureGenerator.TextureFromColorMap(colorMap, noiseData[i].mapWidth, noiseData[i].mapHeight));
+                display.DrawTexture(TextureGenerator.TextureFromColorMap(colorMap, noiseData[i].mapWidth, noiseData[i].mapHeight), i);
                 }
             }
         }
