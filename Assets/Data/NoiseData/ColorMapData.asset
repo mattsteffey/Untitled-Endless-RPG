@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ca932bafeb8e2084193e07ca6e363166, type: 3}
-  m_Name: TemperatureNoise
+  m_Name: ColorMapData
   m_EditorClassIdentifier: 
-  noiseScale: 100
-  octaves: 5
-  persistance: 0.727
-  lacunarity: 2
-  offset: {x: 180, y: 0}
+  noiseScale: 500
+  octaves: 3
+  persistance: 0
+  lacunarity: 1
+  offset: {x: 0, y: 0}
