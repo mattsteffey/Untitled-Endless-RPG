@@ -6,51 +6,54 @@ using UnityEngine;
 
 public class MapGenerator : MonoBehaviour {
 
-    public enum DrawMode { NoiseMaps, ColorMap }
+    public enum DrawMode { NoiseMaps, ColorMap, Mesh }
     public DrawMode drawMode;
+
+
 
     public NoiseData elevationData;
     public NoiseData tempData;
     public NoiseData humidityData;
-    // This will allow us to set the size, scale, and shape of the map in the inspector.
+
     public string seed;
-    public int mapHeight;
-    public int  mapWidth;
+    public const int mapChunkSize = 241;
+    [Range(0,6)]
+    public int levelOfDetail;
+
+
+    public float meshHeightMultiplier;
+    public AnimationCurve meshHeightCurve;
 
 
     public bool autoUpdate;
     public TerrainType[] biomes;
-  
+
     public void GenerateMap() {
 
-       
-        //Creates a new noiseMap, by passing in the values set in the inspector and sending it to the "Noise.cs" script.
-        float[,] elevationMap = Noise.GenerateNoiseMap(mapWidth, mapHeight, seed, elevationData.noiseScale, elevationData.octaves, elevationData.persistance, elevationData.lacunarity, elevationData.offset);
-        float[,] temperatureMap = Noise.GenerateNoiseMap(mapWidth, mapHeight, seed, tempData.noiseScale, tempData.octaves, tempData.persistance, tempData.lacunarity, tempData.offset);
-        float[,] humidityMap = Noise.GenerateNoiseMap(mapWidth, mapHeight, seed, humidityData.noiseScale, humidityData.octaves, humidityData.persistance, humidityData.lacunarity, humidityData.offset);
 
-        //Gathers the Biome Variables (min/max) values
+        //Creates a new noiseMap, by passing in the values set in the inspector and sending it to the "Noise.cs" script.
+        float[,] elevationMap = Noise.GenerateNoiseMap(mapChunkSize, mapChunkSize, seed, elevationData.noiseScale, elevationData.octaves, elevationData.persistance, elevationData.lacunarity, elevationData.offset);
+        float[,] temperatureMap = Noise.GenerateNoiseMap(mapChunkSize, mapChunkSize, seed, tempData.noiseScale, tempData.octaves, tempData.persistance, tempData.lacunarity, tempData.offset);
+        float[,] humidityMap = Noise.GenerateNoiseMap(mapChunkSize, mapChunkSize, seed, humidityData.noiseScale, humidityData.octaves, humidityData.persistance, humidityData.lacunarity, humidityData.offset);
+
+
 
 
         // creates a 1D colorMap from the 2D noiseMap, again.
-        Color32[] colorMap = new Color32[mapWidth * mapHeight];
+        Color32[] colorMap = new Color32[mapChunkSize * mapChunkSize];
 
         // Loops through the elevation noiseMap
-            for (int y = 0; y < mapHeight; y++) {
-                for (int x = 0; x < mapWidth; x++) {
-                    // sets this float to the current point of the noisemap
-                    float currentElevation = elevationMap[x, y];
-                    float currentTemp = temperatureMap[x, y];
-                    float currentHumidity = humidityMap[x, y];
+        for (int y = 0; y < mapChunkSize; y++) {
+            for (int x = 0; x < mapChunkSize; x++) {
+                // sets this float to the current point of the noisemap
+                float currentElevation = elevationMap[x, y];
+                float currentTemp = temperatureMap[x, y];
+                float currentHumidity = humidityMap[x, y];
                 // Loops through possible biome values and sets the biome at each point on the heightMap
-                for (int i = 0; i < biomes.Length; i++) { 
-                    if (currentTemp >= biomes[i].minTemp && currentTemp <= biomes[i].maxTemp && currentHumidity >= biomes[i].minHumidity && currentHumidity <= biomes[i].maxHumidity 
-                        && currentElevation >= biomes[i].minElevation && currentElevation <= biomes[i].maxElevation) {
-                        colorMap[y * mapWidth + x] = biomes[i].color;
-                        } 
-                  
-                        
-
+                for (int i = 0; i < biomes.Length; i++) {
+                    if (currentTemp >= biomes[i].minTemp && currentHumidity >= biomes[i].minHumidity && currentElevation >= biomes[i].minElevation) {
+                        colorMap[y * mapChunkSize + x] = biomes[i].color;
+                        }
                     }
                 }
             }
@@ -65,23 +68,15 @@ public class MapGenerator : MonoBehaviour {
             display.DrawTexture(TextureGenerator.TextureFromHeightMap(elevationMap));
             }
 
-        if (drawMode == DrawMode.ColorMap) {
-            display.DrawTexture(TextureGenerator.TextureFromColorMap(colorMap, mapWidth, mapHeight));
+        else if (drawMode == DrawMode.ColorMap) {
+            display.DrawTexture(TextureGenerator.TextureFromColorMap(colorMap, mapChunkSize, mapChunkSize));
+            }
+        else if (drawMode == DrawMode.Mesh) {
+            display.DrawMesh(MeshGenerator.GenerateTerrainMesh(elevationMap, meshHeightMultiplier, meshHeightCurve, levelOfDetail), TextureGenerator.TextureFromColorMap(colorMap, mapChunkSize, mapChunkSize));
             }
         }
-
-    public void OnValidate() {
-        if (mapWidth < 1) {
-            mapWidth = 1;
-            }
-        if (mapHeight < 1) {
-            mapHeight = 1;
-            }
-        }
-
 
     }
-
  
 
 
@@ -91,10 +86,7 @@ public struct TerrainType {
     public string name;
     public Color32 color;
     public float minHumidity;
-    public float maxHumidity;
     public float minTemp;
-    public float maxTemp;
     public float minElevation;
-    public float maxElevation;
     }
 
