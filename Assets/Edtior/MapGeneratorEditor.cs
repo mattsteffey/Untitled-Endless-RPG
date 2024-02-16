@@ -17,14 +17,14 @@ public class MapGeneratorEditor : Editor
        // This will tell if an update has been made to the inspector, and autoUpdate is checked in MapGenerator, we can redraw the map
         if( DrawDefaultInspector()) {
             if (mapGen.autoUpdate) {
-                mapGen.GenerateMap();
+                mapGen.DrawMapInEditor();
                 }
             }
 
         // Adds a GUI Button with the label "Generate"
         if (GUILayout.Button("Generate")) {
             // This calls the function to actually generate the map in MapGenerator
-            mapGen.GenerateMap();
+            mapGen.DrawMapInEditor();
             }
 
         }

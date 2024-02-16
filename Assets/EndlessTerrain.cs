@@ -1,13 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 
 public class EndlessTerrain : MonoBehaviour
 {
     public const float maxViewDistance = 450;
     public Transform player;
+    public Material mapMaterial;
 
     public static Vector2 playerPosition;
+    static MapGenerator mapGenerator;
     int chunkSize;
     int chunksVisible;
 
@@ -15,6 +18,7 @@ public class EndlessTerrain : MonoBehaviour
     List<TerrainChunk> terrainChunksVisibleLastUpdate = new List<TerrainChunk>();
 
     void Start() {
+        mapGenerator = FindFirstObjectByType<MapGenerator>();
         chunkSize = MapGenerator.mapChunkSize - 1;
         chunksVisible = Mathf.RoundToInt(maxViewDistance / chunkSize);
         }
@@ -46,7 +50,7 @@ public class EndlessTerrain : MonoBehaviour
                         terrainChunksVisibleLastUpdate.Add(terrainChunkDictionary[viewedChunkCoord]);
                         }
                     }
-                else { terrainChunkDictionary.Add(viewedChunkCoord, new TerrainChunk(viewedChunkCoord, chunkSize, transform));
+                else { terrainChunkDictionary.Add(viewedChunkCoord, new TerrainChunk(viewedChunkCoord, chunkSize, transform, mapMaterial));
                         }                        
                 }
             }
@@ -57,15 +61,35 @@ public class EndlessTerrain : MonoBehaviour
         GameObject meshObject;
         Vector2 position;
         Bounds bounds;
-        public TerrainChunk(Vector2 coord, int size, Transform parent) {
+
+        MeshRenderer meshRenderer;
+        MeshFilter meshFilter;
+
+        public TerrainChunk(Vector2 coord, int size, Transform parent, Material material) {
             position = coord * size;
             bounds = new Bounds(position, Vector2.one * size);
             Vector3 positionV3 = new Vector3(position.x,0,position.y);
-            meshObject = GameObject.CreatePrimitive(PrimitiveType.Plane);
+
+            meshObject = new GameObject("Terrain Chunk | " + coord[0] + " , " + coord[1]);
+            meshRenderer = meshObject.AddComponent<MeshRenderer>();
+            meshFilter = meshObject.AddComponent<MeshFilter>();
+            meshRenderer.material = material;
+
             meshObject.transform.position = positionV3;
-            meshObject.transform.localScale = Vector3.one * size /  10f;
             meshObject.transform.parent = parent;
             SetVisible(false);
+
+            mapGenerator.RequestMapData(OnMapDataRecieved);
+
+            }
+
+        void OnMapDataRecieved(MapData mapData) {
+            mapGenerator.RequestMeshData(mapData, OnMeshDataRecieved);
+            }
+
+        void OnMeshDataRecieved(MeshData meshData) {
+            meshFilter.mesh = meshData.CreateMesh();
+
             }
 
         public void UpdateTerrainChunk() {
