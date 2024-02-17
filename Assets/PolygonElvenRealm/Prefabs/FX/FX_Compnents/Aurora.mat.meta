@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: b6f27b3e4f61ce042945d9cf8539e721
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 247353
+  packageName: POLYGON - Elven Realm
+  packageVersion: 1.04
+  assetPath: Assets/PolygonElvenRealm/Prefabs/FX/FX_Compnents/Aurora.mat
+  uploadId: 614578

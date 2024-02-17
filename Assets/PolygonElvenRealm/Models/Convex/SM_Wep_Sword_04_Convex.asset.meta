@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 228e9980e8da6f846828f475f6c15059
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 247353
+  packageName: POLYGON - Elven Realm
+  packageVersion: 1.04
+  assetPath: Assets/PolygonElvenRealm/Models/Convex/SM_Wep_Sword_04_Convex.asset
+  uploadId: 614578

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: e452bd9a76c99c14dabf450aff3c9ec7
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 247353
+  packageName: POLYGON - Elven Realm
+  packageVersion: 1.04
+  assetPath: Assets/PolygonElvenRealm/Models/Convex/SM_Item_TestTube_03_Convex.asset
+  uploadId: 614578

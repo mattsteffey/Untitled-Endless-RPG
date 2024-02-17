@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 725c7a4b0848e6742ae652dd028c7fcc
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 247353
+  packageName: POLYGON - Elven Realm
+  packageVersion: 1.04
+  assetPath: Assets/PolygonElvenRealm/Prefabs/FX/FX_Compnents/Waterfall.mat
+  uploadId: 614578

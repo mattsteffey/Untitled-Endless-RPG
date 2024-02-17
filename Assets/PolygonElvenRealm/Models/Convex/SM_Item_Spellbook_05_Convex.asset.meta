@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 858c6262f7f4f214fb38ba0f1b7f23fc
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 247353
+  packageName: POLYGON - Elven Realm
+  packageVersion: 1.04
+  assetPath: Assets/PolygonElvenRealm/Models/Convex/SM_Item_Spellbook_05_Convex.asset
+  uploadId: 614578

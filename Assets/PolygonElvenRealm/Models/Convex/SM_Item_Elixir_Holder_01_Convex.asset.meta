@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 328aab25073ea0a4b9cfb67e601db19f
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 247353
+  packageName: POLYGON - Elven Realm
+  packageVersion: 1.04
+  assetPath: Assets/PolygonElvenRealm/Models/Convex/SM_Item_Elixir_Holder_01_Convex.asset
+  uploadId: 614578

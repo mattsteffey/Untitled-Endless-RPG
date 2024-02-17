@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: ca9b700964f37d84a90b00c70d981934
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  preprocessorOverride: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 247353
+  packageName: POLYGON - Elven Realm
+  packageVersion: 1.04
+  assetPath: Assets/PolygonElvenRealm/Prefabs/FX/FX_Compnents/Aurora.shader
+  uploadId: 614578

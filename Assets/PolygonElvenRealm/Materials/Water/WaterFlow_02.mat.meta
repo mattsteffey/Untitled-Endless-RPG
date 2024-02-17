@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: d51ddf948f25a254ea5b6734348933ee
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 247353
+  packageName: POLYGON - Elven Realm
+  packageVersion: 1.04
+  assetPath: Assets/PolygonElvenRealm/Materials/Water/WaterFlow_02.mat
+  uploadId: 614578

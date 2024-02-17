@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 17d7292aec0c3fe479294ac8b854741d
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 247353
+  packageName: POLYGON - Elven Realm
+  packageVersion: 1.04
+  assetPath: Assets/PolygonElvenRealm/Models/Convex/SM_Item_Quill_02_Convex.asset
+  uploadId: 614578

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: de5a389f40a481b45a03137797574c3f
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 247353
+  packageName: POLYGON - Elven Realm
+  packageVersion: 1.04
+  assetPath: Assets/PolygonElvenRealm/Prefabs/FX/FX_Compnents/Circle_Material_02.mat
+  uploadId: 614578

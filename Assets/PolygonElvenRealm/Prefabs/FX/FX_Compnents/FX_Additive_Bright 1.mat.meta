@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: a98844fa66aaf6740afd5b739c9ec457
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 247353
+  packageName: POLYGON - Elven Realm
+  packageVersion: 1.04
+  assetPath: Assets/PolygonElvenRealm/Prefabs/FX/FX_Compnents/FX_Additive_Bright
+    1.mat
+  uploadId: 614578

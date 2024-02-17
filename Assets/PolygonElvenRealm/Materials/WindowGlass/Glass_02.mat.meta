@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: a17ee106571544a4192a2e524adf5133
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 247353
+  packageName: POLYGON - Elven Realm
+  packageVersion: 1.04
+  assetPath: Assets/PolygonElvenRealm/Materials/WindowGlass/Glass_02.mat
+  uploadId: 614578

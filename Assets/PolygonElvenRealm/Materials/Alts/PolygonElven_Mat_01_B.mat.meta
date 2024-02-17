@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: c6ce0d4b734e7964db80150461788a37
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 247353
+  packageName: POLYGON - Elven Realm
+  packageVersion: 1.04
+  assetPath: Assets/PolygonElvenRealm/Materials/Alts/PolygonElven_Mat_01_B.mat
+  uploadId: 614578

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 0354432dc22b86d4598991d16a809e84
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 247353
+  packageName: POLYGON - Elven Realm
+  packageVersion: 1.04
+  assetPath: Assets/PolygonElvenRealm/Materials/Water/WaterFlow_Slow_01.mat
+  uploadId: 614578

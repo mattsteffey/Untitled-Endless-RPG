@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 9d8abb377d3b285409c7c27657aae718
+timeCreated: 1629844046
+licenseType: Free
+NativeFormatImporter:
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 247353
+  packageName: POLYGON - Elven Realm
+  packageVersion: 1.04
+  assetPath: Assets/PolygonElvenRealm/Materials/Sky/Skybox_01.mat
+  uploadId: 614578

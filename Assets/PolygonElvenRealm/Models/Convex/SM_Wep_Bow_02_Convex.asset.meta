@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 5d32e8afac41a384e9af8dc418f809bc
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 247353
+  packageName: POLYGON - Elven Realm
+  packageVersion: 1.04
+  assetPath: Assets/PolygonElvenRealm/Models/Convex/SM_Wep_Bow_02_Convex.asset
+  uploadId: 614578

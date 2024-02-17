@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: c831956c64981054a8e81298c1e43c6e
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 247353
+  packageName: POLYGON - Elven Realm
+  packageVersion: 1.04
+  assetPath: Assets/PolygonElvenRealm/Models/Convex/SM_Prop_Chandelier_02_Convex.asset
+  uploadId: 614578

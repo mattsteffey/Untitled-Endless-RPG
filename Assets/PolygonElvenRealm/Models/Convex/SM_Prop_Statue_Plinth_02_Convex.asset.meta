@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: d58ad48f7d171c94da63397b582625f7
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 247353
+  packageName: POLYGON - Elven Realm
+  packageVersion: 1.04
+  assetPath: Assets/PolygonElvenRealm/Models/Convex/SM_Prop_Statue_Plinth_02_Convex.asset
+  uploadId: 614578

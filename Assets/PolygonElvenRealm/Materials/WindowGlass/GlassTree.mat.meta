@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: c33f486a522887446b2667bc6d8e00ec
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 247353
+  packageName: POLYGON - Elven Realm
+  packageVersion: 1.04
+  assetPath: Assets/PolygonElvenRealm/Materials/WindowGlass/GlassTree.mat
+  uploadId: 614578

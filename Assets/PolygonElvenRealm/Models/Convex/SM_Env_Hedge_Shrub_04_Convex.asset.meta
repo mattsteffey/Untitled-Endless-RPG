@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: ff0452a15f7d8014d85fab310ba42743
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 247353
+  packageName: POLYGON - Elven Realm
+  packageVersion: 1.04
+  assetPath: Assets/PolygonElvenRealm/Models/Convex/SM_Env_Hedge_Shrub_04_Convex.asset
+  uploadId: 614578

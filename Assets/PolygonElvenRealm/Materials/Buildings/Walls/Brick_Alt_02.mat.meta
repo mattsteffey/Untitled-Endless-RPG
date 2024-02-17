@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: e25c9c94843db5943b85b404e4efcd77
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 247353
+  packageName: POLYGON - Elven Realm
+  packageVersion: 1.04
+  assetPath: Assets/PolygonElvenRealm/Materials/Buildings/Walls/Brick_Alt_02.mat
+  uploadId: 614578

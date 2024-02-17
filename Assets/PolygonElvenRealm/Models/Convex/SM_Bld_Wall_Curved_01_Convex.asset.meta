@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 97f5693bd09081e4388ee37090b2c989
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 247353
+  packageName: POLYGON - Elven Realm
+  packageVersion: 1.04
+  assetPath: Assets/PolygonElvenRealm/Models/Convex/SM_Bld_Wall_Curved_01_Convex.asset
+  uploadId: 614578

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: a047ace59e96b6b439a5985f04719766
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 247353
+  packageName: POLYGON - Elven Realm
+  packageVersion: 1.04
+  assetPath: Assets/PolygonElvenRealm/Materials/Buildings/Walls/Stucco_Brown_05.mat
+  uploadId: 614578

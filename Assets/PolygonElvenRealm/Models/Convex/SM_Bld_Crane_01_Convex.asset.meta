@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 456a6f5357f0e1e4fbc44f64aa4136a0
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 247353
+  packageName: POLYGON - Elven Realm
+  packageVersion: 1.04
+  assetPath: Assets/PolygonElvenRealm/Models/Convex/SM_Bld_Crane_01_Convex.asset
+  uploadId: 614578

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: c0f32d12a19939541abbefe067623f72
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 247353
+  packageName: POLYGON - Elven Realm
+  packageVersion: 1.04
+  assetPath: Assets/PolygonElvenRealm/Models/Convex/SM_Item_Glass_03_Convex.asset
+  uploadId: 614578

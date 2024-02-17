@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 48f2ea8caba3cd243864325ec00866e9
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 247353
+  packageName: POLYGON - Elven Realm
+  packageVersion: 1.04
+  assetPath: Assets/PolygonElvenRealm/Materials/Buildings/Walls/Brick_Small_01.mat
+  uploadId: 614578

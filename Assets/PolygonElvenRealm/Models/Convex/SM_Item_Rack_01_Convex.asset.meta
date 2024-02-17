@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 2bcd6a0e62e09744db24e0303bf7b59a
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 247353
+  packageName: POLYGON - Elven Realm
+  packageVersion: 1.04
+  assetPath: Assets/PolygonElvenRealm/Models/Convex/SM_Item_Rack_01_Convex.asset
+  uploadId: 614578

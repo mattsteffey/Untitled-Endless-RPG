@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: cfb289f51b1e5cf418a3fb149dbd8d5c
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 247353
+  packageName: POLYGON - Elven Realm
+  packageVersion: 1.04
+  assetPath: Assets/PolygonElvenRealm/Models/Convex/SM_Item_Elixir_02_Convex.asset
+  uploadId: 614578

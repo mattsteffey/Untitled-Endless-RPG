@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: eb76f1d9a38ead24495776c4ac4e67d1
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 247353
+  packageName: POLYGON - Elven Realm
+  packageVersion: 1.04
+  assetPath: Assets/PolygonElvenRealm/Models/Convex/SM_Bld_Wall_End_Straight_Small_Window_01_Convex.asset
+  uploadId: 614578

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: b56b7456007d5ef46bfe2c101d5d0490
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 247353
+  packageName: POLYGON - Elven Realm
+  packageVersion: 1.04
+  assetPath: Assets/PolygonElvenRealm/Models/Convex/SM_Prop_Crate_07_Convex.asset
+  uploadId: 614578

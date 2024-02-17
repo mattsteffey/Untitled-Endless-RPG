@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: c4c56ab8ee14efb4cbe011c2109ef8d7
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 247353
+  packageName: POLYGON - Elven Realm
+  packageVersion: 1.04
+  assetPath: Assets/PolygonElvenRealm/Models/Convex/SM_Prop_Lantern_03_Convex.asset
+  uploadId: 614578

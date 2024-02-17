@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: d8ab3f9e2697d384a847faee38d7f555
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 247353
+  packageName: POLYGON - Elven Realm
+  packageVersion: 1.04
+  assetPath: Assets/PolygonElvenRealm/Models/Convex/SM_Env_Bridge_Statue_Convex.asset
+  uploadId: 614578

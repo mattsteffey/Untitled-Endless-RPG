@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca932bafeb8e2084193e07ca6e363166, type: 3}
   m_Name: ElevationNoise
   m_EditorClassIdentifier: 
-  noiseScale: 30
+  noiseScale: 800
   octaves: 3
-  persistance: 0.665
-  lacunarity: 1
-  offset: {x: -53.6, y: 0}
+  persistance: 0.359
+  lacunarity: 3
+  offset: {x: 0, y: 0}

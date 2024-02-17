@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 3128cac999344a045a88a1ba0230f1f4
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 247353
+  packageName: POLYGON - Elven Realm
+  packageVersion: 1.04
+  assetPath: Assets/PolygonElvenRealm/Materials/WindowGlass/GlassMoon.mat
+  uploadId: 614578

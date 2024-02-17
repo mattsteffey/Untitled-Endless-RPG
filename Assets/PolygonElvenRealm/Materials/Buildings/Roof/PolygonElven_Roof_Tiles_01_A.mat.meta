@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: d590bfb1ce7757b4899402e031670e2d
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 247353
+  packageName: POLYGON - Elven Realm
+  packageVersion: 1.04
+  assetPath: Assets/PolygonElvenRealm/Materials/Buildings/Roof/PolygonElven_Roof_Tiles_01_A.mat
+  uploadId: 614578

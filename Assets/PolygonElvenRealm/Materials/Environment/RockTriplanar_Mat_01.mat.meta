@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 7125ef9d4564f0a419f1dc62ed5f3b2a
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 247353
+  packageName: POLYGON - Elven Realm
+  packageVersion: 1.04
+  assetPath: Assets/PolygonElvenRealm/Materials/Environment/RockTriplanar_Mat_01.mat
+  uploadId: 614578

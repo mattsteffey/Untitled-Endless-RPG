@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 487228537b0769a46ae5920bd8a1a3a4
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 247353
+  packageName: POLYGON - Elven Realm
+  packageVersion: 1.04
+  assetPath: Assets/PolygonElvenRealm/Models/Convex/SM_Prop_Dock_Pole_01_Convex.asset
+  uploadId: 614578

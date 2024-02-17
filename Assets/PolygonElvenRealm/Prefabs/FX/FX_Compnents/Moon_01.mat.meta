@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: fd5942d7013ed7d4cb621fbb1ad11f66
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 247353
+  packageName: POLYGON - Elven Realm
+  packageVersion: 1.04
+  assetPath: Assets/PolygonElvenRealm/Prefabs/FX/FX_Compnents/Moon_01.mat
+  uploadId: 614578

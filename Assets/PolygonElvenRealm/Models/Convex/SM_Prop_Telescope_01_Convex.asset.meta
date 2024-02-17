@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: c0ed05667d61b41438e1fa396010f434
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 247353
+  packageName: POLYGON - Elven Realm
+  packageVersion: 1.04
+  assetPath: Assets/PolygonElvenRealm/Models/Convex/SM_Prop_Telescope_01_Convex.asset
+  uploadId: 614578
