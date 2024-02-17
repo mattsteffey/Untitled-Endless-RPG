@@ -21,7 +21,7 @@ public static class Noise
         for (int i = 0; i < octaves; i++) {
             //If you give MathF.perlin noise a number that is too high, it seems to bug and always return the same values, limiting to +-100000
             float offsetX = prng.Next(-100000, 100000) + offset.x;
-            float offsetY = prng.Next(-100000, 100000) + offset.y;
+            float offsetY = prng.Next(-100000, 100000) - offset.y;
             octaveOffests[i] = new Vector2(offsetX, offsetY);   
             }
 
@@ -49,8 +49,8 @@ public static class Noise
                 // Here we divide X/Y by scale so we can scale the perlin
                 // We also multiply each point by frequency. The higher the frequency the further apart the sample points - this makes the height values change more rapidly
                 for (int i = 0; i < octaves; i++) {
-                    float sampleX = (x - halfWidth) / scale * frequency + octaveOffests[i].x;
-                    float sampleY = (y - halfHeight) / scale * frequency + octaveOffests[i].y;
+                    float sampleX = (x - halfWidth + octaveOffests[i].x) / scale * frequency;
+                    float sampleY = (y - halfHeight + octaveOffests[i].y) / scale * frequency;
 
                     // This generates the noise values on each point. It takes in X and Y coordinate SAMPLE POINTS
                     // The (* 2 - 1) changes the ranges from 0f to 1f, into -1f to 1f, this will be normalized, but allows for better range in noise.

@@ -5,7 +5,9 @@ using UnityEngine.Rendering;
 
 public static class MeshGenerator
 {
-    public static MeshData GenerateTerrainMesh(float[,] elevationMap, float heightMultiplier , AnimationCurve heightCurve, int levelOfDetail) {
+    public static MeshData GenerateTerrainMesh(float[,] elevationMap, float heightMultiplier , AnimationCurve _heightCurve, int editorPreviewLOD) {
+
+        AnimationCurve heightCurve = new AnimationCurve(_heightCurve.keys);
 
         int width = elevationMap.GetLength(0);
         int height = elevationMap.GetLength(1);
@@ -14,7 +16,7 @@ public static class MeshGenerator
         float topLeftX = (width - 1) / -2f;
         float topLeftZ = (height - 1) / 2f;
 
-        int meshSimplificationIncrement = (levelOfDetail ==0)?1: levelOfDetail * 2;
+        int meshSimplificationIncrement = (editorPreviewLOD ==0)?1: editorPreviewLOD * 2;
         int verticiesPerLine = (width-1)/meshSimplificationIncrement + 1;
 
 

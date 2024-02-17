@@ -17,7 +17,7 @@ public class MapGenerator : MonoBehaviour {
     public string seed;
     public const int mapChunkSize = 241;
     [Range(0, 6)]
-    public int levelOfDetail;
+    public int editorPreviewLOD;
 
 
     public float meshHeightMultiplier;
@@ -31,9 +31,7 @@ public class MapGenerator : MonoBehaviour {
     Queue<MapThreadInfo<MeshData>> meshDataThreadInfoQueue = new Queue<MapThreadInfo<MeshData>>();
 
     public void DrawMapInEditor() {
-        MapData mapData = GenerateMapData();
-
-
+        MapData mapData = GenerateMapData(Vector2.zero);
         // This is the reference to the MapDisplay class by finding the object it is on.
         MapDisplay display = FindFirstObjectByType<MapDisplay>();
         if (drawMode == DrawMode.NoiseMaps) {
@@ -45,36 +43,36 @@ public class MapGenerator : MonoBehaviour {
             display.DrawTexture(TextureGenerator.TextureFromColorMap(mapData.colorMap, mapChunkSize, mapChunkSize));
             }
         else if (drawMode == DrawMode.Mesh) {
-            display.DrawMesh(MeshGenerator.GenerateTerrainMesh(mapData.elevationMap, meshHeightMultiplier, meshHeightCurve, levelOfDetail), TextureGenerator.TextureFromColorMap(mapData.colorMap, mapChunkSize, mapChunkSize));
+            display.DrawMesh(MeshGenerator.GenerateTerrainMesh(mapData.elevationMap, meshHeightMultiplier, meshHeightCurve, editorPreviewLOD), TextureGenerator.TextureFromColorMap(mapData.colorMap, mapChunkSize, mapChunkSize));
             }
         }
 
     // This is what is responsible for spinning up MapDataThread which will run its contents on another thread.
-    public void RequestMapData(Action<MapData> callback) {
+    public void RequestMapData(Vector2 center, Action<MapData> callback) {
         ThreadStart threadStart = delegate {
-            MapDataThread(callback);
+            MapDataThread(center, callback);
             };
 
         new Thread(threadStart).Start();
         }
 
-    void MapDataThread(Action<MapData> callback) {
-        MapData mapData = GenerateMapData();
+    void MapDataThread(Vector2 center, Action<MapData> callback) {
+        MapData mapData = GenerateMapData(center);
         lock (mapDataThreadInfoQueue) {
             mapDataThreadInfoQueue.Enqueue(new MapThreadInfo<MapData>(callback, mapData));
             }
         }
 
-    public void RequestMeshData(MapData mapData, Action<MeshData> callback) {
+    public void RequestMeshData(MapData mapData, int lod, Action<MeshData> callback) {
         ThreadStart threadStart = delegate {
-            MeshDataThread(mapData, callback);
+            MeshDataThread(mapData, lod, callback);
             };
 
         new Thread(threadStart).Start();
         }
 
-    void MeshDataThread(MapData mapData, Action<MeshData> callback) {
-        MeshData meshData = MeshGenerator.GenerateTerrainMesh(mapData.elevationMap, meshHeightMultiplier, meshHeightCurve, levelOfDetail);
+    void MeshDataThread(MapData mapData, int lod, Action<MeshData> callback) {
+        MeshData meshData = MeshGenerator.GenerateTerrainMesh(mapData.elevationMap, meshHeightMultiplier, meshHeightCurve, lod);
         lock (meshDataThreadInfoQueue) {
             meshDataThreadInfoQueue.Enqueue(new MapThreadInfo<MeshData>(callback, meshData));
             }
@@ -97,11 +95,11 @@ public class MapGenerator : MonoBehaviour {
         }
 
 
-    MapData GenerateMapData() {
+    MapData GenerateMapData(Vector2 center) {
         //Creates a new noiseMap, by passing in the values set in the inspector and sending it to the "Noise.cs" script.
-        float[,] elevationMap = Noise.GenerateNoiseMap(mapChunkSize, mapChunkSize, seed, elevationData.noiseScale, elevationData.octaves, elevationData.persistance, elevationData.lacunarity, elevationData.offset);
-        float[,] temperatureMap = Noise.GenerateNoiseMap(mapChunkSize, mapChunkSize, seed, tempData.noiseScale, tempData.octaves, tempData.persistance, tempData.lacunarity, tempData.offset);
-        float[,] humidityMap = Noise.GenerateNoiseMap(mapChunkSize, mapChunkSize, seed, humidityData.noiseScale, humidityData.octaves, humidityData.persistance, humidityData.lacunarity, humidityData.offset);
+        float[,] elevationMap = Noise.GenerateNoiseMap(mapChunkSize, mapChunkSize, seed, elevationData.noiseScale, elevationData.octaves, elevationData.persistance, elevationData.lacunarity, center + elevationData.offset);
+        float[,] temperatureMap = Noise.GenerateNoiseMap(mapChunkSize, mapChunkSize, seed, tempData.noiseScale, tempData.octaves, tempData.persistance, tempData.lacunarity, center + tempData.offset);
+        float[,] humidityMap = Noise.GenerateNoiseMap(mapChunkSize, mapChunkSize, seed, humidityData.noiseScale, humidityData.octaves, humidityData.persistance, humidityData.lacunarity, center + humidityData.offset);
 
         // creates a 1D colorMap from the 2D noiseMap, again.
         Color32[] colorMap = new Color32[mapChunkSize * mapChunkSize];
@@ -111,8 +109,11 @@ public class MapGenerator : MonoBehaviour {
             for (int x = 0; x < mapChunkSize; x++) {
                 // sets this float to the current point of the noisemap
                 float currentElevation = elevationMap[x, y];
-                float currentTemp = temperatureMap[x, y];
+                float currentTemp = temperatureMap[x, y] - (elevationMap[x, y] - .33f);
                 float currentHumidity = humidityMap[x, y];
+
+               //Debug.Log("E: " + currentElevation + " | T: " + currentTemp + " |  H: " + currentHumidity);
+
                 // Loops through possible biome values and sets the biome at each point on the heightMap
                 for (int i = 0; i < biomes.Length; i++) {
                     if (currentTemp >= biomes[i].minTemp && currentHumidity >= biomes[i].minHumidity && currentElevation >= biomes[i].minElevation) {
