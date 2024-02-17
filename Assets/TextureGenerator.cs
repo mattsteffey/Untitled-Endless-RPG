@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public static class TextureGenerator 
-{
+public static class TextureGenerator {
     //Recieves the colorMap from ??? and applies it to a texture
     public static Texture2D TextureFromColorMap(Color32[] colorMap, int width, int height) {
 
@@ -24,7 +23,7 @@ public static class TextureGenerator
         // Generates an array of colors, width times height.
         // This makes it to where there is a color for each coordinate on the x/y grid but in a line
         Color32[] colorMap = new Color32[width * height];
-      
+
         // Loops through all the values of the noise map
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
@@ -39,4 +38,4 @@ public static class TextureGenerator
         // This returns runs the ulti
         return TextureFromColorMap(colorMap, width, height);
         }
-}
+    }

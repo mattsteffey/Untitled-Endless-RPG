@@ -2,14 +2,13 @@ using UnityEngine;
 using Unity.Mathematics;
 using UnityEngine.Rendering.Universal;
 
-public static class Noise
-{
+public static class Noise {
 
-// The point of these selections is that when Local mode is selected, and we attempt to find the minumum and maxiumum of the height map, in order to normalize them, when different meshes
-// on the grid have different minimum and maximums, they end up normalizing differently - which can cause seams between the endless terrain. Use Global for endless and local for something like island falloff, or single mesh terrains.
+    // The point of these selections is that when Local mode is selected, and we attempt to find the minumum and maxiumum of the height map, in order to normalize them, when different meshes
+    // on the grid have different minimum and maximums, they end up normalizing differently - which can cause seams between the endless terrain. Use Global for endless and local for something like island falloff, or single mesh terrains.
     public enum NormalizeMode { Local, Global };
     public static float[,] GenerateNoiseMap(int mapWidth, int mapHeight, string seed, float scale, int octaves, float persistance, float lacunarity, Vector2 offset, NormalizeMode normalizeMode) {
-       
+
         // This is what will store the actual values of the perlin noise
         // Initally it stores the values of the mapWidth and Height, but that is recalculated with noise below 
         float[,] noiseMap = new float[mapWidth, mapHeight];
@@ -74,7 +73,7 @@ public static class Noise
                     amplitude *= persistance;
                     // After each run, frequency is multiplied by lacunarity. Since Lacunarity is 1+, this increases the frequency (makes waves smaller horizontally)
                     frequency *= lacunarity;
-                    
+
                     // Assigns these new Perlin values back into the noiseMap
                     noiseMap[x, y] = perlinValue;
                     }
@@ -107,6 +106,6 @@ public static class Noise
                 }
             }
 
-                return noiseMap;
-      }       
-}
+        return noiseMap;
+        }
+    }

@@ -18,7 +18,7 @@ public class MapGenerator : MonoBehaviour {
     public string seed;
 
     //96 divisible by all even numbers through 12 except 10 (1,2,4,6,8,12)
-  
+
 
     public bool useFlatShading;
 
@@ -169,38 +169,37 @@ public class MapGenerator : MonoBehaviour {
         }
     }
 
-    struct MapThreadInfo<T> {
-        public readonly Action<T> callback;
-        public readonly T parameter;
+struct MapThreadInfo<T> {
+    public readonly Action<T> callback;
+    public readonly T parameter;
 
-        public MapThreadInfo(Action<T> callback, T parameter) {
-            this.callback = callback;
-            this.parameter = parameter;
-            }
+    public MapThreadInfo(Action<T> callback, T parameter) {
+        this.callback = callback;
+        this.parameter = parameter;
         }
+    }
 
 
-    // This struct is what is seen in the inspector that allows to set attributes of different terrains (ocean, forest, etc.) This is currently only tied to height, but we will need to calculate humidity and temp values for this.
-    [System.Serializable]
-    public struct TerrainType {
-        public string name;
-        public Color32 color;
-        public float minHumidity;
-        public float minTemp;
-        public float minElevation;
-        }
+// This struct is what is seen in the inspector that allows to set attributes of different terrains (ocean, forest, etc.) This is currently only tied to height, but we will need to calculate humidity and temp values for this.
+[System.Serializable]
+public struct TerrainType {
+    public string name;
+    public Color32 color;
+    public float minHumidity;
+    public float minTemp;
+    public float minElevation;
+    }
 
 
-    public struct MapData {
-        public readonly float[,] elevationMap;
-        public readonly Color32[] colorMap;
+public struct MapData {
+    public readonly float[,] elevationMap;
+    public readonly Color32[] colorMap;
 
     public MapData(float[,] elevationMap, Color32[] colorMap) {
-            this.elevationMap = elevationMap;
-            this.colorMap = colorMap;
+        this.elevationMap = elevationMap;
+        this.colorMap = colorMap;
         }
-        }
+    }
 
 
-    
 
