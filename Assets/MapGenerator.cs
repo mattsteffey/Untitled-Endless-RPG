@@ -146,6 +146,7 @@ public class MapGenerator : MonoBehaviour {
 
         // creates a 1D colorMap from the 2D noiseMap, again.
         Color32[] colorMap = new Color32[mapChunkSize * mapChunkSize];
+        Texture2D[] textureMap = new Texture2D[mapChunkSize * mapChunkSize];
 
         // Loops through the elevation noiseMap
         for (int y = 0; y < mapChunkSize; y++) {
@@ -157,6 +158,10 @@ public class MapGenerator : MonoBehaviour {
                 for (int i = 0; i < biomes.Length; i++) {
                     if (currentTemp >= biomes[i].minTemp && currentHumidity >= biomes[i].minHumidity && currentElevation >= biomes[i].minElevation) {
                         colorMap[y * mapChunkSize + x] = biomes[i].color;
+
+
+                        //This needs to pass terrain color data into the shaderGraph instead
+
                         }
                     else {
                         break;
@@ -185,6 +190,7 @@ struct MapThreadInfo<T> {
 public struct TerrainType {
     public string name;
     public Color32 color;
+    public Texture2D baseTexture;
     public float minHumidity;
     public float minTemp;
     public float minElevation;
