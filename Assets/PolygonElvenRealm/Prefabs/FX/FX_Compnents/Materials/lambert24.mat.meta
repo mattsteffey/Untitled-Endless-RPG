@@ -1,8 +1,15 @@
 fileFormatVersion: 2
-guid: 58c50bf0f038782449fcfb79e552e902
+guid: 9bdd65839cc8d524d9bebead35716113
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 2100000
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 247353
+  packageName: POLYGON - Elven Realm
+  packageVersion: 1.04
+  assetPath: Assets/PolygonElvenRealm/Prefabs/FX/FX_Compnents/Materials/lambert24.mat
+  uploadId: 614578

@@ -15,6 +15,7 @@ public class MapDisplay : MonoBehaviour {
         textureRenderer.transform.localScale = new Vector3(texture.width, 1, texture.height);
         }
 
+    // APPLIES TEXTURE TO THE MATERIAL ON THE MESH
     public void DrawMesh(MeshData meshData, Texture2D texture) {
         //Shared means we can fiddle with these outside of play mode
         meshFilter.sharedMesh = meshData.CreateMesh();

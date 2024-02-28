@@ -1,6 +1,5 @@
 using UnityEngine;
-using Unity.Mathematics;
-using UnityEngine.Rendering.Universal;
+
 
 public static class Noise {
 

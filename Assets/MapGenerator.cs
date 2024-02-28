@@ -4,6 +4,7 @@ using System.Collections;
 using System;
 using System.Threading;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 
 public class MapGenerator : MonoBehaviour {
 
@@ -14,6 +15,8 @@ public class MapGenerator : MonoBehaviour {
     public NoiseData elevationData;
     public NoiseData tempData;
     public NoiseData humidityData;
+
+    public Material mapMaterial;
 
     public string seed;
 
@@ -42,6 +45,10 @@ public class MapGenerator : MonoBehaviour {
         if (!Application.isPlaying) {
             DrawMapInEditor();
             }
+        }
+
+    public void Start() {
+
         }
 
     private void OnValidate() {
@@ -146,7 +153,6 @@ public class MapGenerator : MonoBehaviour {
 
         // creates a 1D colorMap from the 2D noiseMap, again.
         Color32[] colorMap = new Color32[mapChunkSize * mapChunkSize];
-        Texture2D[] textureMap = new Texture2D[mapChunkSize * mapChunkSize];
 
         // Loops through the elevation noiseMap
         for (int y = 0; y < mapChunkSize; y++) {
@@ -154,25 +160,31 @@ public class MapGenerator : MonoBehaviour {
                 // sets this float to the current point of the noisemap
                 float currentElevation = elevationMap[x, y];
                 float currentTemp = temperatureMap[x, y];
-                float currentHumidity = humidityMap[x, y];
+                float currentHumidity = humidityMap[x, y];     
+
+
+
                 for (int i = 0; i < biomes.Length; i++) {
                     if (currentTemp >= biomes[i].minTemp && currentHumidity >= biomes[i].minHumidity && currentElevation >= biomes[i].minElevation) {
                         colorMap[y * mapChunkSize + x] = biomes[i].color;
 
-
-                        //This needs to pass terrain color data into the shaderGraph instead
-
-                        }
+                    }
                     else {
                         break;
                         }
                     }
                 }
             }
+
+        
         return new MapData(elevationMap, colorMap);
 
         }
+
+
+
     }
+
 
 struct MapThreadInfo<T> {
     public readonly Action<T> callback;
@@ -185,7 +197,6 @@ struct MapThreadInfo<T> {
     }
 
 
-// This struct is what is seen in the inspector that allows to set attributes of different terrains (ocean, forest, etc.) This is currently only tied to height, but we will need to calculate humidity and temp values for this.
 [System.Serializable]
 public struct TerrainType {
     public string name;
