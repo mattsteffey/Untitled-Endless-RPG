@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: ElevationNoise
   m_EditorClassIdentifier: 
   autoUpdate: 1
-  noiseScale: 800
-  octaves: 3
-  persistance: 0.564
-  lacunarity: 2
+  noiseScale: 2000
+  octaves: 4
+  persistance: 0.527
+  lacunarity: 4
   offset: {x: 0, y: 0}

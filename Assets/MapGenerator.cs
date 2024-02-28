@@ -18,14 +18,17 @@ public class MapGenerator : MonoBehaviour {
 
     public Material mapMaterial;
 
+    [Range(0, MeshGenerator.numSupportedChunkSizes - 1)]
+
+    public int chunkSizeIndex;
+
+    [Range(0, MeshGenerator.numSupportedFlatshadedChunkSizes - 1)]
+    public int flatshadedChunkSizeIndex;
+
     public string seed;
-
-    //96 divisible by all even numbers through 12 except 10 (1,2,4,6,8,12)
-
-
     public bool useFlatShading;
 
-    [Range(0, 6)]
+    [Range(0, MeshGenerator.numSupportedLODs - 1)]
     public int editorPreviewLOD;
 
 
@@ -66,17 +69,17 @@ public class MapGenerator : MonoBehaviour {
             }
         }
 
-    public static int mapChunkSize {
+    public int mapChunkSize {
         get {
             if (instance == null) {
                 instance = FindFirstObjectByType<MapGenerator>();
                 }
 
             if (instance.useFlatShading) {
-                return 95;
+                return MeshGenerator.supportedFlatshadedSizes[flatshadedChunkSizeIndex] - 1;
                 }
             else {
-                return 239;
+                return MeshGenerator.supportedChunkSizes[chunkSizeIndex] - 1;
                 }
             }
         }
