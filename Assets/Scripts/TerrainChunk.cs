@@ -25,14 +25,20 @@ public class TerrainChunk {
     float maxViewDst;
 
     HeightMapSettings heightMapSettings;
+    HeightMapSettings tempSettings;
+    HeightMapSettings humiditySettings;
     MeshSettings meshSettings;
     Transform viewer;
 
-    public TerrainChunk(Vector2 coord, HeightMapSettings heightMapSettings, MeshSettings meshSettings, LODInfo[] detailLevels, int colliderLODIndex, Transform parent, Transform viewer, Material material) {
+    
+
+    public TerrainChunk(Vector2 coord, HeightMapSettings heightMapSettings, HeightMapSettings tempSettings, HeightMapSettings humidtySettings, MeshSettings meshSettings, LODInfo[] detailLevels, int colliderLODIndex, Transform parent, Transform viewer, Material material) {
         this.coord = coord;
         this.detailLevels = detailLevels;
         this.colliderLODIndex = colliderLODIndex;
         this.heightMapSettings = heightMapSettings;
+        this.tempSettings = tempSettings;
+        this.humiditySettings = humidtySettings;
         this.meshSettings = meshSettings;
         this.viewer = viewer;
 
@@ -40,6 +46,7 @@ public class TerrainChunk {
         Vector2 position = coord * meshSettings.meshWorldSize;
         bounds = new Bounds(position, Vector2.one * meshSettings.meshWorldSize);
 
+        
 
         meshObject = new GameObject("Terrain Chunk");
         meshRenderer = meshObject.AddComponent<MeshRenderer>();
@@ -65,17 +72,14 @@ public class TerrainChunk {
         }
 
     public void Load() {
-        ThreadedDataRequester.RequestData(() => HeightMapGenerator.GenerateHeightMap(meshSettings.numVertsPerLine, meshSettings.numVertsPerLine, heightMapSettings, sampleCentre), OnHeightMapReceived);
+        ThreadedDataRequester.RequestData(() => HeightMapGenerator.GenerateHeightMap(meshSettings.numVertsPerLine, meshSettings.numVertsPerLine, heightMapSettings, tempSettings, humiditySettings, sampleCentre), OnHeightMapReceived);
         }
-
-
-
-    void OnHeightMapReceived(object heightMapObject) {
+        void OnHeightMapReceived(object heightMapObject) {
         this.heightMap = (HeightMap)heightMapObject;
         heightMapReceived = true;
-
         UpdateTerrainChunk();
         }
+
 
     Vector2 viewerPosition {
         get {
@@ -177,7 +181,7 @@ class LODMesh {
 
     public void RequestMesh(HeightMap heightMap, MeshSettings meshSettings) {
         hasRequestedMesh = true;
-        ThreadedDataRequester.RequestData(() => MeshGenerator.GenerateTerrainMesh(heightMap.values, meshSettings, lod), OnMeshDataReceived);
+        ThreadedDataRequester.RequestData(() => MeshGenerator.GenerateTerrainMesh(heightMap.heightValues, meshSettings, lod), OnMeshDataReceived);
         }
 
     }

@@ -13,6 +13,9 @@ public class MapPreview : MonoBehaviour {
 
     public MeshSettings meshSettings;
     public HeightMapSettings heightMapSettings;
+    public HeightMapSettings tempMapSettings;
+    public HeightMapSettings humidityMapSettings;
+
     public TextureData textureData;
 
     public Material terrainMaterial;
@@ -29,13 +32,13 @@ public class MapPreview : MonoBehaviour {
     public void DrawMapInEditor() {
         textureData.ApplyToMaterial(terrainMaterial);
         textureData.UpdateMeshHeights(terrainMaterial, heightMapSettings.minHeight, heightMapSettings.maxHeight);
-        HeightMap heightMap = HeightMapGenerator.GenerateHeightMap(meshSettings.numVertsPerLine, meshSettings.numVertsPerLine, heightMapSettings, Vector2.zero);
+        HeightMap heightMap = HeightMapGenerator.GenerateHeightMap(meshSettings.numVertsPerLine, meshSettings.numVertsPerLine, heightMapSettings, tempMapSettings, humidityMapSettings, Vector2.zero);
 
         if (drawMode == DrawMode.NoiseMap) {
             DrawTexture(TextureGenerator.TextureFromHeightMap(heightMap));
             }
         else if (drawMode == DrawMode.Mesh) {
-            DrawMesh(MeshGenerator.GenerateTerrainMesh(heightMap.values, meshSettings, editorPreviewLOD));
+            DrawMesh(MeshGenerator.GenerateTerrainMesh(heightMap.heightValues, meshSettings, editorPreviewLOD));
             }
         }
 

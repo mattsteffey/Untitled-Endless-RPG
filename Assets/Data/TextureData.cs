@@ -18,6 +18,8 @@ public class TextureData : UpdatableData {
         material.SetInt("layerCount", layers.Length);
         material.SetColorArray("baseColours", layers.Select(x => x.tint).ToArray());
         material.SetFloatArray("baseStartHeights", layers.Select(x => x.startHeight).ToArray());
+        material.SetFloatArray("baseStartTemp", layers.Select(x => x.startTemperature).ToArray());
+        material.SetFloatArray("baseStartHumidity", layers.Select(x => x.startHumidity).ToArray());
         material.SetFloatArray("baseBlends", layers.Select(x => x.blendStrength).ToArray());
         material.SetFloatArray("baseColourStrength", layers.Select(x => x.tintStrength).ToArray());
         material.SetFloatArray("baseTextureScales", layers.Select(x => x.textureScale).ToArray());
@@ -37,6 +39,7 @@ public class TextureData : UpdatableData {
 
     Texture2DArray GenerateTextureArray(Texture2D[] textures) {
         Texture2DArray textureArray = new Texture2DArray(textureSize, textureSize, textures.Length, textureFormat, true);
+       
         for (int i = 0; i < textures.Length; i++) {
             textureArray.SetPixels(textures[i].GetPixels(), i);
             }
@@ -52,6 +55,10 @@ public class TextureData : UpdatableData {
         public float tintStrength;
         [Range(0, 1)]
         public float startHeight;
+        [Range(0, 1)]
+        public float startTemperature;
+        [Range(0, 1)]
+        public float startHumidity;
         [Range(0, 1)]
         public float blendStrength;
         public float textureScale;

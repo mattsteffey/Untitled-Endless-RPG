@@ -15,12 +15,15 @@ Shader "Custom/Terrain" {
 		// Use shader model 3.0 target, to get nicer looking lighting
 		#pragma target 3.0
 
-		const static int maxLayerCount = 8;
+		const static int maxLayerCount = 16;
 		const static float epsilon = 1E-4;
+
 
 		int layerCount;
 		float3 baseColours[maxLayerCount];
 		float baseStartHeights[maxLayerCount];
+		float baseStartTemp[maxLayerCount];
+		float baseStartHumidity[maxLayerCount];
 		float baseBlends[maxLayerCount];
 		float baseColourStrength[maxLayerCount];
 		float baseTextureScales[maxLayerCount];
@@ -51,13 +54,15 @@ Shader "Custom/Terrain" {
 		}
 
 		void surf (Input IN, inout SurfaceOutputStandard o) {
+
+		
 			float heightPercent = inverseLerp(minHeight,maxHeight, IN.worldPos.y);
 			float3 blendAxes = abs(IN.worldNormal);
 			blendAxes /= blendAxes.x + blendAxes.y + blendAxes.z;
 
 			for (int i = 0; i < layerCount; i ++) {
+				
 				float drawStrength = inverseLerp(-baseBlends[i]/2 - epsilon, baseBlends[i]/2, heightPercent - baseStartHeights[i]);
-
 				float3 baseColour = baseColours[i] * baseColourStrength[i];
 				float3 textureColour = triplanar(IN.worldPos, baseTextureScales[i], blendAxes, i) * (1-baseColourStrength[i]);
 
