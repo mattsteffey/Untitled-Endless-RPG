@@ -27,7 +27,7 @@ public class TerrainGenerator : MonoBehaviour {
     float meshWorldSize;
     int chunksVisibleInViewDst;
 
-    BiomeGenerator biomeGenerator;
+
 
     Dictionary<Vector2, TerrainChunk> terrainChunkDictionary = new Dictionary<Vector2, TerrainChunk>();
     List<TerrainChunk> visibleTerrainChunks = new List<TerrainChunk>();
@@ -40,8 +40,6 @@ public class TerrainGenerator : MonoBehaviour {
         float maxViewDst = detailLevels[detailLevels.Length - 1].visibleDstThreshold;
         meshWorldSize = meshSettings.meshWorldSize;
         chunksVisibleInViewDst = Mathf.RoundToInt(maxViewDst / meshWorldSize);
-
-        biomeGenerator = FindFirstObjectByType<BiomeGenerator>();
 
         UpdateVisibleChunks();
         }

@@ -490,7 +490,6 @@ GameObject:
   m_Component:
   - component: {fileID: 593165458}
   - component: {fileID: 593165459}
-  - component: {fileID: 593165460}
   m_Layer: 0
   m_Name: MapGenerator
   m_TagString: Untagged
@@ -544,20 +543,6 @@ MonoBehaviour:
   humiditySettings: {fileID: 11400000, guid: db8864378f848a64d989b364356bdab7, type: 2}
   viewer: {fileID: 1547550668}
   mapMaterial: {fileID: 2100000, guid: 90c0054a336ba1c40bbdadb7ba4d8767, type: 2}
---- !u!114 &593165460
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 593165455}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee8ed3490be2e8c4e880163794cf04af, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tempSettings: {fileID: 11400000, guid: 280cbb6709e67a14bb1b8e43598d5464, type: 2}
-  humiditySettings: {fileID: 11400000, guid: db8864378f848a64d989b364356bdab7, type: 2}
 --- !u!1 &1191589622
 GameObject:
   m_ObjectHideFlags: 0
