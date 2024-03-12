@@ -27,7 +27,19 @@ public class TextureData : UpdatableData {
         material.SetTexture("baseTextures", texturesArray);
 
         UpdateMeshHeights(material, savedMinHeight, savedMaxHeight);
-        }
+    }
+
+    public void ApplyToMaterial2(Material material)//////////////////////////New///////////////////////////////
+    {
+        material.SetInt("layerCount", layers.Length);
+        material.SetColorArray("baseColours", layers.Select(x => x.tint).ToArray());
+        material.SetFloatArray("baseStartHeights", layers.Select(x => x.startHeight).ToArray());
+        material.SetFloatArray("baseStartTemp", layers.Select(x => x.startTemperature).ToArray());
+        material.SetFloatArray("baseStartHumidity", layers.Select(x => x.startHumidity).ToArray());
+        material.SetFloatArray("baseBlends", layers.Select(x => x.blendStrength).ToArray());
+        material.SetFloatArray("baseColourStrength", layers.Select(x => x.tintStrength).ToArray());
+        material.SetFloatArray("baseTextureScales", layers.Select(x => x.textureScale).ToArray());
+    }
 
     public void UpdateMeshHeights(Material material, float minHeight, float maxHeight) {
         savedMinHeight = minHeight;
@@ -35,7 +47,7 @@ public class TextureData : UpdatableData {
 
         material.SetFloat("minHeight", minHeight);
         material.SetFloat("maxHeight", maxHeight);
-        }
+    }
 
     Texture2DArray GenerateTextureArray(Texture2D[] textures) {
         Texture2DArray textureArray = new Texture2DArray(textureSize, textureSize, textures.Length, textureFormat, true);
@@ -45,7 +57,7 @@ public class TextureData : UpdatableData {
             }
         textureArray.Apply();
         return textureArray;
-        }
+    }
 
     [System.Serializable]
     public class Layer {
@@ -62,7 +74,7 @@ public class TextureData : UpdatableData {
         [Range(0, 1)]
         public float blendStrength;
         public float textureScale;
-        }
-
-
     }
+
+
+}

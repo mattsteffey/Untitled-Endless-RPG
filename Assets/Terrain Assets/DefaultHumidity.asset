@@ -15,12 +15,12 @@ MonoBehaviour:
   autoUpdate: 0
   noiseSettings:
     normalizeMode: 1
-    scale: 50
+    scale: 500
     octaves: 6
-    persistance: 0.6
+    persistance: 0.475
     lacunarity: 2
     seed: 0
-    offset: {x: 5000, y: 0}
+    offset: {x: 500, y: 0}
   useFalloff: 0
   heightMultiplier: 1
   heightCurve:

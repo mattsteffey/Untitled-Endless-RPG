@@ -17,7 +17,7 @@ public static class HeightMapGenerator {
         float minValue = float.MaxValue;
         float maxValue = float.MinValue;
 
-        Debug.Log("height: " + heightValues[0, 0] + "  ---  " + "temp: " + tempValues[0, 0] + "  ---   " + "humidty: " + humidityValues[0, 0]);
+        //Debug.Log("height: " + heightValues[0, 0] + "  ---  " + "temp: " + tempValues[0, 0] + "  ---   " + "humidty: " + humidityValues[0, 0]);
 
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
