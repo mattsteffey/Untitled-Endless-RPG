@@ -76,6 +76,7 @@ public class TerrainChunk {
         }
         void OnHeightMapReceived(object heightMapObject) {
         this.heightMap = (HeightMap)heightMapObject;
+       
         heightMapReceived = true;
         UpdateTerrainChunk();
         }
@@ -181,7 +182,7 @@ class LODMesh {
 
     public void RequestMesh(HeightMap heightMap, MeshSettings meshSettings) {
         hasRequestedMesh = true;
-        ThreadedDataRequester.RequestData(() => MeshGenerator.GenerateTerrainMesh(heightMap.heightValues, meshSettings, lod), OnMeshDataReceived);
+        ThreadedDataRequester.RequestData(() => MeshGenerator.GenerateTerrainMesh(heightMap.heightValues, heightMap.tempValues, heightMap.humidityValues, meshSettings, lod), OnMeshDataReceived);
         }
 
     }

@@ -4,7 +4,7 @@ using System.Collections;
 public static class MeshGenerator {
 
 
-    public static MeshData GenerateTerrainMesh(float[,] heightMap, MeshSettings meshSettings, int levelOfDetail) {
+    public static MeshData GenerateTerrainMesh(float[,] heightMap, float[,] humidityMap, float[,] temperatureMap, MeshSettings meshSettings, int levelOfDetail) {
 
         int skipIncrement = (levelOfDetail == 0) ? 1 : levelOfDetail * 2;
         int numVertsPerLine = meshSettings.numVertsPerLine;
@@ -46,6 +46,8 @@ public static class MeshGenerator {
                     Vector2 percent = new Vector2(x - 1, y - 1) / (numVertsPerLine - 3);
                     Vector2 vertexPosition2D = topLeft + new Vector2(percent.x, -percent.y) * meshSettings.meshWorldSize;
                     float height = heightMap[x, y];
+                    float humidity = humidityMap[x, y];
+                    float temp = temperatureMap[x, y];
 
                     if (isEdgeConnectionVertex) {
                         bool isVertical = x == 2 || x == numVertsPerLine - 3;
@@ -59,7 +61,7 @@ public static class MeshGenerator {
                         height = heightMainVertexA * (1 - dstPercentFromAToB) + heightMainVertexB * dstPercentFromAToB;
                         }
 
-                    meshData.AddVertex(new Vector3(vertexPosition2D.x, height, vertexPosition2D.y), percent, vertexIndex);
+                    meshData.AddVertex(new Vector3(vertexPosition2D.x, height, vertexPosition2D.y), new Vector2(humidity, temp), percent, vertexIndex);
 
                     bool createTriangle = x < numVertsPerLine - 1 && y < numVertsPerLine - 1 && (!isEdgeConnectionVertex || (x != 2 && y != 2));
 
@@ -88,6 +90,7 @@ public class MeshData {
     Vector3[] vertices;
     int[] triangles;
     Vector2[] uvs;
+    Vector2[] humidityAndTempUVs;
     Vector3[] bakedNormals;
 
     Vector3[] outOfMeshVertices;
@@ -108,6 +111,7 @@ public class MeshData {
 
         vertices = new Vector3[numMeshEdgeVertices + numEdgeConnectionVertices + numMainVertices];
         uvs = new Vector2[vertices.Length];
+        humidityAndTempUVs = new Vector2[vertices.Length];
 
         int numMeshEdgeTriangles = 8 * (numVertsPerLine - 4);
         int numMainTriangles = (numMainVerticesPerLine - 1) * (numMainVerticesPerLine - 1) * 2;
@@ -117,13 +121,16 @@ public class MeshData {
         outOfMeshTriangles = new int[24 * (numVertsPerLine - 2)];
         }
 
-    public void AddVertex(Vector3 vertexPosition, Vector2 uv, int vertexIndex) {
+    public void AddVertex(Vector3 vertexPosition, Vector2 humidityAndTemp, Vector2 uv, int vertexIndex) {
         if (vertexIndex < 0) {
             outOfMeshVertices[-vertexIndex - 1] = vertexPosition;
             }
         else {
             vertices[vertexIndex] = vertexPosition;
             uvs[vertexIndex] = uv;
+            humidityAndTempUVs[vertexIndex] = humidityAndTemp;
+
+          
             }
         }
 
@@ -215,19 +222,22 @@ public class MeshData {
 
         for (int i = 0; i < triangles.Length; i++) {
             flatShadedVertices[i] = vertices[triangles[i]];
-            flatShadedUvs[i] = uvs[triangles[i]];
+            flatShadedUvs[i] = humidityAndTempUVs[triangles[i]];
             triangles[i] = i;
             }
 
         vertices = flatShadedVertices;
         uvs = flatShadedUvs;
+        humidityAndTempUVs = flatShadedUvs;
         }
 
     public Mesh CreateMesh() {
         Mesh mesh = new Mesh();
         mesh.vertices = vertices;
         mesh.triangles = triangles;
-        mesh.uv = uvs;
+        //mesh.uv = uvs;
+        mesh.uv = humidityAndTempUVs;
+        Debug.Log(humidityAndTempUVs);
         if (useFlatShading) {
             mesh.RecalculateNormals();
             }

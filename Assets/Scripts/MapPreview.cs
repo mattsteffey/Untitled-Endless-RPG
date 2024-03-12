@@ -38,7 +38,7 @@ public class MapPreview : MonoBehaviour {
             DrawTexture(TextureGenerator.TextureFromHeightMap(heightMap));
             }
         else if (drawMode == DrawMode.Mesh) {
-            DrawMesh(MeshGenerator.GenerateTerrainMesh(heightMap.heightValues, meshSettings, editorPreviewLOD));
+            DrawMesh(MeshGenerator.GenerateTerrainMesh(heightMap.heightValues, heightMap.tempValues, heightMap.humidityValues, meshSettings, editorPreviewLOD));
             }
         }
 
