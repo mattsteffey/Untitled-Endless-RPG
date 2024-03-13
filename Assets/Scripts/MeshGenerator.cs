@@ -237,7 +237,7 @@ public class MeshData {
         mesh.triangles = triangles;
         //mesh.uv = uvs;
         mesh.uv = humidityAndTempUVs;
-        Debug.Log(humidityAndTempUVs);
+        //Debug.Log(humidityAndTempUVs);
         if (useFlatShading) {
             mesh.RecalculateNormals();
             }

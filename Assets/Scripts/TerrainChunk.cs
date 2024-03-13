@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class TerrainChunk {
 
-    const float colliderGenerationDistanceThreshold = 100;
+    const float colliderGenerationDistanceThreshold = 5;
     public event System.Action<TerrainChunk, bool> onVisibilityChanged;
     public Vector2 coord;
 
@@ -30,7 +30,7 @@ public class TerrainChunk {
     MeshSettings meshSettings;
     Transform viewer;
 
-    
+
 
     public TerrainChunk(Vector2 coord, HeightMapSettings heightMapSettings, HeightMapSettings tempSettings, HeightMapSettings humidtySettings, MeshSettings meshSettings, LODInfo[] detailLevels, int colliderLODIndex, Transform parent, Transform viewer, Material material) {
         this.coord = coord;
@@ -46,7 +46,7 @@ public class TerrainChunk {
         Vector2 position = coord * meshSettings.meshWorldSize;
         bounds = new Bounds(position, Vector2.one * meshSettings.meshWorldSize);
 
-        
+
 
         meshObject = new GameObject("Terrain Chunk");
         meshRenderer = meshObject.AddComponent<MeshRenderer>();
@@ -74,9 +74,8 @@ public class TerrainChunk {
     public void Load() {
         ThreadedDataRequester.RequestData(() => HeightMapGenerator.GenerateHeightMap(meshSettings.numVertsPerLine, meshSettings.numVertsPerLine, heightMapSettings, tempSettings, humiditySettings, sampleCentre), OnHeightMapReceived);
         }
-        void OnHeightMapReceived(object heightMapObject) {
+    void OnHeightMapReceived(object heightMapObject) {
         this.heightMap = (HeightMap)heightMapObject;
-       
         heightMapReceived = true;
         UpdateTerrainChunk();
         }

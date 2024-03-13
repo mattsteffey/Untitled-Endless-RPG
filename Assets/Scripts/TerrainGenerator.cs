@@ -1,12 +1,11 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.PackageManager.Requests;
 
 public class TerrainGenerator : MonoBehaviour {
 
-    //const float playerMoveThresholdForChunkUpdate = 25f;
-    //const float sqrPlayerMoveThresholdForChunkUpdate = playerMoveThresholdForChunkUpdate * playerMoveThresholdForChunkUpdate;
+    const float viewerMoveThresholdForChunkUpdate = 25f;
+    const float sqrViewerMoveThresholdForChunkUpdate = viewerMoveThresholdForChunkUpdate * viewerMoveThresholdForChunkUpdate;
 
 
     public int colliderLODIndex;
@@ -19,19 +18,21 @@ public class TerrainGenerator : MonoBehaviour {
     public HeightMapSettings tempSettings;
     public HeightMapSettings humiditySettings;
 
-    public Transform playerGhost;
+    public Transform viewer;
     public Material mapMaterial;
 
-    Vector2 playerPosition;
+    Vector2 viewerPosition;
+    Vector2 viewerPositionOld;
 
     float meshWorldSize;
     int chunksVisibleInViewDst;
+
 
     Dictionary<Vector2, TerrainChunk> terrainChunkDictionary = new Dictionary<Vector2, TerrainChunk>();
     List<TerrainChunk> visibleTerrainChunks = new List<TerrainChunk>();
 
     void Start() {
-      
+
         textureSettings.ApplyToMaterial(mapMaterial);
         textureSettings.UpdateMeshHeights(mapMaterial, heightMapSettings.minHeight, heightMapSettings.maxHeight);
 
@@ -43,22 +44,29 @@ public class TerrainGenerator : MonoBehaviour {
         }
 
     void Update() {
-         foreach (TerrainChunk chunk in visibleTerrainChunks) {
-            chunk.UpdateCollisionMesh();
+        viewerPosition = new Vector2(viewer.position.x, viewer.position.z);
+
+        if (viewerPosition != viewerPositionOld) {
+            foreach (TerrainChunk chunk in visibleTerrainChunks) {
+                chunk.UpdateCollisionMesh();
+                }
             }
 
+        if ((viewerPositionOld - viewerPosition).sqrMagnitude > sqrViewerMoveThresholdForChunkUpdate) {
+            viewerPositionOld = viewerPosition;
+            UpdateVisibleChunks();
+            }
         }
 
-    public void UpdateVisibleChunks() {
+    void UpdateVisibleChunks() {
         HashSet<Vector2> alreadyUpdatedChunkCoords = new HashSet<Vector2>();
         for (int i = visibleTerrainChunks.Count - 1; i >= 0; i--) {
             alreadyUpdatedChunkCoords.Add(visibleTerrainChunks[i].coord);
             visibleTerrainChunks[i].UpdateTerrainChunk();
             }
 
-        playerPosition = new Vector2(playerGhost.transform.position.x, playerGhost.transform.position.z);
-        int currentChunkCoordX = Mathf.RoundToInt(playerPosition.x / meshWorldSize);
-        int currentChunkCoordY = Mathf.RoundToInt(playerPosition.y / meshWorldSize);
+        int currentChunkCoordX = Mathf.RoundToInt(viewerPosition.x / meshWorldSize);
+        int currentChunkCoordY = Mathf.RoundToInt(viewerPosition.y / meshWorldSize);
 
         for (int yOffset = -chunksVisibleInViewDst; yOffset <= chunksVisibleInViewDst; yOffset++) {
             for (int xOffset = -chunksVisibleInViewDst; xOffset <= chunksVisibleInViewDst; xOffset++) {
@@ -68,20 +76,16 @@ public class TerrainGenerator : MonoBehaviour {
                         terrainChunkDictionary[viewedChunkCoord].UpdateTerrainChunk();
                         }
                     else {
-                        //Debug.Log("hit");
-                        TerrainChunk newChunk = new TerrainChunk(viewedChunkCoord, heightMapSettings, tempSettings, humiditySettings, meshSettings, detailLevels, colliderLODIndex, transform, playerGhost, mapMaterial);
+                        TerrainChunk newChunk = new TerrainChunk(viewedChunkCoord, heightMapSettings, tempSettings, humiditySettings, meshSettings, detailLevels, colliderLODIndex, transform, viewer, mapMaterial);
                         terrainChunkDictionary.Add(viewedChunkCoord, newChunk);
                         newChunk.onVisibilityChanged += OnTerrainChunkVisibilityChanged;
                         newChunk.Load();
                         }
                     }
+
                 }
             }
         }
-
- 
-
-        
 
     void OnTerrainChunkVisibilityChanged(TerrainChunk chunk, bool isVisible) {
         if (isVisible) {
