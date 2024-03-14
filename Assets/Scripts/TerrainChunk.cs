@@ -1,8 +1,10 @@
 using UnityEngine;
+using System;
+using UnityEditor.Rendering;
 
 public class TerrainChunk {
 
-    const float colliderGenerationDistanceThreshold = 5;
+    const float colliderGenerationDistanceThreshold = 5000;
     public event System.Action<TerrainChunk, bool> onVisibilityChanged;
     public Vector2 coord;
 
@@ -30,6 +32,8 @@ public class TerrainChunk {
     MeshSettings meshSettings;
     Transform viewer;
 
+    
+
 
 
     public TerrainChunk(Vector2 coord, HeightMapSettings heightMapSettings, HeightMapSettings tempSettings, HeightMapSettings humidtySettings, MeshSettings meshSettings, LODInfo[] detailLevels, int colliderLODIndex, Transform parent, Transform viewer, Material material) {
@@ -42,13 +46,15 @@ public class TerrainChunk {
         this.meshSettings = meshSettings;
         this.viewer = viewer;
 
+
         sampleCentre = coord * meshSettings.meshWorldSize / meshSettings.meshScale;
         Vector2 position = coord * meshSettings.meshWorldSize;
         bounds = new Bounds(position, Vector2.one * meshSettings.meshWorldSize);
+       
+     
 
 
-
-        meshObject = new GameObject("Terrain Chunk");
+        meshObject = new GameObject("Terrain Chunk " + coord);
         meshRenderer = meshObject.AddComponent<MeshRenderer>();
         meshFilter = meshObject.AddComponent<MeshFilter>();
         meshCollider = meshObject.AddComponent<MeshCollider>();
@@ -68,11 +74,15 @@ public class TerrainChunk {
             }
 
         maxViewDst = detailLevels[detailLevels.Length - 1].visibleDstThreshold;
+    }
 
-        }
-
-    public void Load() {
-        ThreadedDataRequester.RequestData(() => HeightMapGenerator.GenerateHeightMap(meshSettings.numVertsPerLine, meshSettings.numVertsPerLine, heightMapSettings, tempSettings, humiditySettings, sampleCentre), OnHeightMapReceived);
+    public void Load(Action<GameObject> onLoaded) {
+        ThreadedDataRequester.RequestData(
+            () => HeightMapGenerator.GenerateHeightMap(meshSettings.numVertsPerLine, meshSettings.numVertsPerLine, heightMapSettings, tempSettings, humiditySettings, sampleCentre),
+            data => {
+                OnHeightMapReceived(data);
+                onLoaded?.Invoke(meshObject); // Invoke the callback after height map is processed
+            });
         }
     void OnHeightMapReceived(object heightMapObject) {
         this.heightMap = (HeightMap)heightMapObject;
@@ -129,6 +139,9 @@ public class TerrainChunk {
                     }
                 }
             }
+
+
+
         }
 
     public void UpdateCollisionMesh() {
@@ -159,6 +172,8 @@ public class TerrainChunk {
         }
 
     }
+
+
 
 class LODMesh {
 

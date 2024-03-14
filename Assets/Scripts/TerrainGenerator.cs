@@ -1,10 +1,10 @@
 using UnityEngine;
-using System.Collections;
+using System;
 using System.Collections.Generic;
 
 public class TerrainGenerator : MonoBehaviour {
 
-    const float viewerMoveThresholdForChunkUpdate = 25f;
+    const float viewerMoveThresholdForChunkUpdate = 50f;
     const float sqrViewerMoveThresholdForChunkUpdate = viewerMoveThresholdForChunkUpdate * viewerMoveThresholdForChunkUpdate;
 
 
@@ -18,14 +18,15 @@ public class TerrainGenerator : MonoBehaviour {
     public HeightMapSettings tempSettings;
     public HeightMapSettings humiditySettings;
 
-    public Transform viewer;
     public Material mapMaterial;
 
-    Vector2 viewerPosition;
-    Vector2 viewerPositionOld;
+    public Transform ghostTransform;
+    public Transform playerTransform;
 
     float meshWorldSize;
     int chunksVisibleInViewDst;
+    Vector3 currentOffset;
+    Vector3 totalOffset;
 
 
     Dictionary<Vector2, TerrainChunk> terrainChunkDictionary = new Dictionary<Vector2, TerrainChunk>();
@@ -43,19 +44,24 @@ public class TerrainGenerator : MonoBehaviour {
         UpdateVisibleChunks();
         }
 
-    void Update() {
-        viewerPosition = new Vector2(viewer.position.x, viewer.position.z);
+    void FixedUpdate() {
 
-        if (viewerPosition != viewerPositionOld) {
-            foreach (TerrainChunk chunk in visibleTerrainChunks) {
-                chunk.UpdateCollisionMesh();
-                }
+        foreach (TerrainChunk chunk in visibleTerrainChunks) {
+            chunk.UpdateCollisionMesh();
             }
 
-        if ((viewerPositionOld - viewerPosition).sqrMagnitude > sqrViewerMoveThresholdForChunkUpdate) {
-            viewerPositionOld = viewerPosition;
+        // Checks if the player meets the threshold distance from 0,0
+        if (new Vector2(playerTransform.position.x, playerTransform.position.z).sqrMagnitude > sqrViewerMoveThresholdForChunkUpdate) {
+            // If the player meets the threshold, it moves the distance the player has travelled...
+            ghostTransform.position = new Vector3(ghostTransform.position.x + playerTransform.position.x, 0, ghostTransform.position.z + playerTransform.position.z);
+            currentOffset = new Vector3(playerTransform.position.x, 0, playerTransform.position.z);
+            totalOffset += new Vector3(playerTransform.position.x, 0, playerTransform.position.z);
+            playerTransform.position = new Vector3(0, playerTransform.position.y, 0);
+            gameObject.transform.position -= currentOffset;
             UpdateVisibleChunks();
-            }
+
+           
+                    }
         }
 
     void UpdateVisibleChunks() {
@@ -65,26 +71,35 @@ public class TerrainGenerator : MonoBehaviour {
             visibleTerrainChunks[i].UpdateTerrainChunk();
             }
 
-        int currentChunkCoordX = Mathf.RoundToInt(viewerPosition.x / meshWorldSize);
-        int currentChunkCoordY = Mathf.RoundToInt(viewerPosition.y / meshWorldSize);
+        int ghostCurrentChunkCoordX = Mathf.RoundToInt(ghostTransform.position.x / meshWorldSize);
+        int ghostCurrentChunkCoordY = Mathf.RoundToInt(ghostTransform.position.z / meshWorldSize);
+        int playerCurrentChunkCoordX = Mathf.RoundToInt(playerTransform.position.x / meshWorldSize);
+        int playerCurrentChunkCoordY = Mathf.RoundToInt(playerTransform.position.z / meshWorldSize);
+
 
         for (int yOffset = -chunksVisibleInViewDst; yOffset <= chunksVisibleInViewDst; yOffset++) {
             for (int xOffset = -chunksVisibleInViewDst; xOffset <= chunksVisibleInViewDst; xOffset++) {
-                Vector2 viewedChunkCoord = new Vector2(currentChunkCoordX + xOffset, currentChunkCoordY + yOffset);
+                Vector2 viewedChunkCoord = new Vector2(ghostCurrentChunkCoordX + xOffset, ghostCurrentChunkCoordY + yOffset);
                 if (!alreadyUpdatedChunkCoords.Contains(viewedChunkCoord)) {
                     if (terrainChunkDictionary.ContainsKey(viewedChunkCoord)) {
                         terrainChunkDictionary[viewedChunkCoord].UpdateTerrainChunk();
                         }
                     else {
-                        TerrainChunk newChunk = new TerrainChunk(viewedChunkCoord, heightMapSettings, tempSettings, humiditySettings, meshSettings, detailLevels, colliderLODIndex, transform, viewer, mapMaterial);
+                        TerrainChunk newChunk = new TerrainChunk(viewedChunkCoord, heightMapSettings, tempSettings, humiditySettings, meshSettings, detailLevels, colliderLODIndex, transform, ghostTransform, mapMaterial);
                         terrainChunkDictionary.Add(viewedChunkCoord, newChunk);
                         newChunk.onVisibilityChanged += OnTerrainChunkVisibilityChanged;
-                        newChunk.Load();
+                        newChunk.Load((meshObject) => TerrainLoadComplete(meshObject));
+
                         }
                     }
-
                 }
             }
+        }
+
+
+
+    public void TerrainLoadComplete(GameObject loadedChunk) {
+        loadedChunk.transform.position -= (totalOffset);
         }
 
     void OnTerrainChunkVisibilityChanged(TerrainChunk chunk, bool isVisible) {
