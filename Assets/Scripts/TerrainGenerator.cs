@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class TerrainGenerator : MonoBehaviour {
 
-    const float viewerMoveThresholdForChunkUpdate = 50f;
+    const float viewerMoveThresholdForChunkUpdate = 100f;
     const float sqrViewerMoveThresholdForChunkUpdate = viewerMoveThresholdForChunkUpdate * viewerMoveThresholdForChunkUpdate;
 
 
@@ -46,12 +46,13 @@ public class TerrainGenerator : MonoBehaviour {
 
     void FixedUpdate() {
 
-        foreach (TerrainChunk chunk in visibleTerrainChunks) {
-            chunk.UpdateCollisionMesh();
-            }
+      
 
         // Checks if the player meets the threshold distance from 0,0
         if (new Vector2(playerTransform.position.x, playerTransform.position.z).sqrMagnitude > sqrViewerMoveThresholdForChunkUpdate) {
+            foreach (TerrainChunk chunk in visibleTerrainChunks) {
+                chunk.UpdateCollisionMesh();
+                }
             // If the player meets the threshold, it moves the distance the player has travelled...
             ghostTransform.position = new Vector3(ghostTransform.position.x + playerTransform.position.x, 0, ghostTransform.position.z + playerTransform.position.z);
             currentOffset = new Vector3(playerTransform.position.x, 0, playerTransform.position.z);
@@ -89,7 +90,6 @@ public class TerrainGenerator : MonoBehaviour {
                         terrainChunkDictionary.Add(viewedChunkCoord, newChunk);
                         newChunk.onVisibilityChanged += OnTerrainChunkVisibilityChanged;
                         newChunk.Load((meshObject) => TerrainLoadComplete(meshObject));
-
                         }
                     }
                 }
