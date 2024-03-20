@@ -20,7 +20,7 @@ public static class HeightMapGenerator {
         for (int i = 0; i < biomeDataList.Count; i++) {
             float[,] biomeNoise = Noise.GenerateNoiseMap(width, height, biomeDataList[i].biomeHeightMaps[0].noiseSettings, sampleCentre);
             biomeNoiseValues.Add(biomeNoise);
-           
+
             }
 
 
@@ -32,25 +32,25 @@ public static class HeightMapGenerator {
                 float biomeHeightMultiplier = new float();
 
                 for (int k = 0; k < biomeDataList.Count; k++) {
-
-                 
-
-                    if (k < biomeDataList.Count - 1) {
-                        if (heightValues[i, j] * heightCurve_threadsafe.Evaluate(heightValues[i, j]) >= biomeDataList[k].startHeight && heightValues[i, j] < biomeDataList[k + 1].startHeight) {
-                            //Debug.Log("This is height: " + heightValues[i, j] + " at startHeight " + biomeDataList[k].startHeight + " with index " + k);
-                            biomeHeightValue = biomeNoiseValues[k][i, j];
-                            biomeHeightMultiplier = biomeDataList[k].biomeHeightMaps[0].heightMultiplier;
-                            
-                            }
-                        }
-
-                    if (k == biomeDataList.Count - 1) {
+                    if (k < biomeDataList.Count) {
                         if (heightValues[i, j] * heightCurve_threadsafe.Evaluate(heightValues[i, j]) >= biomeDataList[k].startHeight) {
-                            //Debug.Log("This is the highest Biome: " + heightValues[i, j] + " at startHeight " + biomeDataList[k].startHeight);
-                            biomeHeightValue = biomeNoiseValues[k][i, j];
-                            biomeHeightMultiplier = biomeDataList[k].biomeHeightMaps[0].heightMultiplier;
+                            if (tempValues[i, j] >= biomeDataList[k].startTemp) {
+                                if (humidityValues[i, j] >= biomeDataList[k].startHumidity) {
+                                    biomeHeightValue = biomeNoiseValues[k][i, j];
+                                    biomeHeightMultiplier = biomeDataList[k].biomeHeightMaps[0].heightMultiplier;
+                                    }
+                                  }
+                                }
                             }
-                        }
+
+
+                    //if (k == biomeDataList.Count - 1) {
+                    //    if (heightValues[i, j] * heightCurve_threadsafe.Evaluate(heightValues[i, j]) >= biomeDataList[k].startHeight) {
+                    //        //Debug.Log("This is the highest Biome: " + heightValues[i, j] + " at startHeight " + biomeDataList[k].startHeight);
+                    //        biomeHeightValue = biomeNoiseValues[k][i, j];
+                    //        biomeHeightMultiplier = biomeDataList[k].biomeHeightMaps[0].heightMultiplier;
+                    //        }
+                    //    }
                     }
 
 
@@ -72,7 +72,7 @@ public static class HeightMapGenerator {
                     }
 
 
-            
+
 
                 }
             }

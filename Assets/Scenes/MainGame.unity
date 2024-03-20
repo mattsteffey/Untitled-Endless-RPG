@@ -890,7 +890,7 @@ Transform:
   m_GameObject: {fileID: 593165455}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 50, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -914,7 +914,15 @@ MonoBehaviour:
   colliderLODIndex: 0
   detailLevels:
   - lod: 0
-    visibleDstThreshold: 1500
+    visibleDstThreshold: 300
+  - lod: 1
+    visibleDstThreshold: 600
+  - lod: 2
+    visibleDstThreshold: 1200
+  - lod: 3
+    visibleDstThreshold: 2400
+  - lod: 4
+    visibleDstThreshold: 4800
   meshSettings: {fileID: 11400000, guid: b66c2051e57c45f4295e830212f4b212, type: 2}
   heightMapSettings: {fileID: 11400000, guid: 0561d71f4f59c9946b3995c861c73514, type: 2}
   textureSettings: {fileID: 11400000, guid: 52b44ad192cb0f545b68662b008f331a, type: 2}

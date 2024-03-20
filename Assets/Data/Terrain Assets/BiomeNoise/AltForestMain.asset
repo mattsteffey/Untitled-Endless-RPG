@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 56086756558e27d489161041bddf0756, type: 3}
-  m_Name: OceanMain
+  m_Name: AltForestMain
   m_EditorClassIdentifier: 
-  autoUpdate: 1
+  autoUpdate: 0
   noiseSettings:
     normalizeMode: 1
     scale: 500
     octaves: 6
-    persistance: 0.532
+    persistance: 0.618
     lacunarity: 2
-    seed: 5226
+    seed: 60
     offset: {x: 0, y: 0}
   useFalloff: 0
-  heightMultiplier: 0
+  heightMultiplier: 50
   heightCurve:
     serializedVersion: 2
     m_Curve:
@@ -34,15 +34,15 @@ MonoBehaviour:
       tangentMode: 34
       weightedMode: 0
       inWeight: 0
-      outWeight: 0
+      outWeight: 0.33333334
     - serializedVersion: 3
-      time: 1
-      value: 1
+      time: 1.5
+      value: 1.5
       inSlope: 1
       outSlope: 1
       tangentMode: 34
       weightedMode: 0
-      inWeight: 0
+      inWeight: 0.33333334
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
