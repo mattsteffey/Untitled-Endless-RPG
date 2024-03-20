@@ -1,27 +1,68 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.ShaderKeywordFilter;
 using UnityEngine;
 
 public static class HeightMapGenerator {
 
-    public static HeightMap GenerateHeightMap(int width, int height, HeightMapSettings heightSettings, HeightMapSettings tempSettings, HeightMapSettings humiditySettings, Vector2 sampleCentre) {
+    public static HeightMap GenerateHeightMap(int width, int height, HeightMapSettings heightSettings, HeightMapSettings tempSettings, HeightMapSettings humiditySettings, List<BiomeMaps.BiomeData> biomeDataList, Vector2 sampleCentre) {
+        AnimationCurve heightCurve_threadsafe = new AnimationCurve(heightSettings.heightCurve.keys);
+        float minValue = float.MaxValue;
+        float maxValue = float.MinValue;
 
         // values holds the data for the heightmap. 
         float[,] heightValues = Noise.GenerateNoiseMap(width, height, heightSettings.noiseSettings, sampleCentre);
         float[,] tempValues = Noise.GenerateNoiseMap(width, height, tempSettings.noiseSettings, sampleCentre);
         float[,] humidityValues = Noise.GenerateNoiseMap(width, height, humiditySettings.noiseSettings, sampleCentre);
 
+        // Creates a list of different biome Noise Maps
+        List<float[,]> biomeNoiseValues = new List<float[,]>();
+        for (int i = 0; i < biomeDataList.Count; i++) {
+            float[,] biomeNoise = Noise.GenerateNoiseMap(width, height, biomeDataList[i].biomeHeightMaps[0].noiseSettings, sampleCentre);
+            biomeNoiseValues.Add(biomeNoise);
+           
+            }
 
-        AnimationCurve heightCurve_threadsafe = new AnimationCurve(heightSettings.heightCurve.keys);
 
-        float minValue = float.MaxValue;
-        float maxValue = float.MinValue;
-
-        //Debug.Log("height: " + heightValues[0, 0] + "  ---  " + "temp: " + tempValues[0, 0] + "  ---   " + "humidty: " + humidityValues[0, 0]);
 
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
-                heightValues[i, j] *= heightCurve_threadsafe.Evaluate(heightValues[i, j]) * heightSettings.heightMultiplier;
+
+                float biomeHeightValue = new float();
+                float biomeHeightMultiplier = new float();
+
+                for (int k = 0; k < biomeDataList.Count; k++) {
+
+                 
+
+                    if (k < biomeDataList.Count - 1) {
+                        if (heightValues[i, j] * heightCurve_threadsafe.Evaluate(heightValues[i, j]) >= biomeDataList[k].startHeight && heightValues[i, j] < biomeDataList[k + 1].startHeight) {
+                            //Debug.Log("This is height: " + heightValues[i, j] + " at startHeight " + biomeDataList[k].startHeight + " with index " + k);
+                            biomeHeightValue = biomeNoiseValues[k][i, j];
+                            biomeHeightMultiplier = biomeDataList[k].biomeHeightMaps[0].heightMultiplier;
+                            
+                            }
+                        }
+
+                    if (k == biomeDataList.Count - 1) {
+                        if (heightValues[i, j] * heightCurve_threadsafe.Evaluate(heightValues[i, j]) >= biomeDataList[k].startHeight) {
+                            //Debug.Log("This is the highest Biome: " + heightValues[i, j] + " at startHeight " + biomeDataList[k].startHeight);
+                            biomeHeightValue = biomeNoiseValues[k][i, j];
+                            biomeHeightMultiplier = biomeDataList[k].biomeHeightMaps[0].heightMultiplier;
+                            }
+                        }
+                    }
+
+
+                //Debug.Log("heightValues: " + heightValues[i, j] + "  biomeHeightValue: " + biomeHeightValue + "  biomeHeightMultiplier: " + biomeHeightMultiplier);
+
+
+
+
+
+                heightValues[i, j] *= heightCurve_threadsafe.Evaluate(heightValues[i, j]) * heightSettings.heightMultiplier + (biomeHeightValue * biomeHeightMultiplier);
+                //heightValues[i, j] += heightCurve_threadsafe.Evaluate(biomeHeightValue) * biomeHeightMultiplier;
+
 
                 if (heightValues[i, j] > maxValue) {
                     maxValue = heightValues[i, j];
@@ -29,6 +70,10 @@ public static class HeightMapGenerator {
                 if (heightValues[i, j] < minValue) {
                     minValue = heightValues[i, j];
                     }
+
+
+            
+
                 }
             }
 

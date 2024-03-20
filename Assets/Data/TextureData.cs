@@ -1,9 +1,12 @@
 using UnityEngine;
 using System.Collections;
 using System.Linq;
+using Unity.VisualScripting;
 
 [CreateAssetMenu()]
 public class TextureData : UpdatableData {
+
+
 
     const int textureSize = 512;
     const TextureFormat textureFormat = TextureFormat.RGB565;
@@ -61,6 +64,7 @@ public class TextureData : UpdatableData {
 
     [System.Serializable]
     public class Layer {
+        public string name;
         public Texture2D texture;
         public Color tint;
         [Range(0, 1)]
@@ -74,6 +78,7 @@ public class TextureData : UpdatableData {
         [Range(0, 1)]
         public float blendStrength;
         public float textureScale;
+        public HeightMapSettings[] biomeNoise;
     }
 
 

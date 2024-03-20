@@ -1,6 +1,7 @@
 using UnityEngine;
 using System;
 using UnityEditor.Rendering;
+using System.Collections.Generic;
 
 public class TerrainChunk {
 
@@ -31,12 +32,11 @@ public class TerrainChunk {
     HeightMapSettings humiditySettings;
     MeshSettings meshSettings;
     Transform viewer;
-
-    
-
+    List<BiomeMaps.BiomeData> biomeDataList;
 
 
-    public TerrainChunk(Vector2 coord, HeightMapSettings heightMapSettings, HeightMapSettings tempSettings, HeightMapSettings humidtySettings, MeshSettings meshSettings, LODInfo[] detailLevels, int colliderLODIndex, Transform parent, Transform viewer, Material material) {
+
+    public TerrainChunk(Vector2 coord, HeightMapSettings heightMapSettings, HeightMapSettings tempSettings, HeightMapSettings humidtySettings, MeshSettings meshSettings, List<BiomeMaps.BiomeData> biomeDataList, LODInfo[] detailLevels, int colliderLODIndex, Transform parent, Transform viewer, Material material) {
         this.coord = coord;
         this.detailLevels = detailLevels;
         this.colliderLODIndex = colliderLODIndex;
@@ -45,13 +45,11 @@ public class TerrainChunk {
         this.humiditySettings = humidtySettings;
         this.meshSettings = meshSettings;
         this.viewer = viewer;
-
+        this.biomeDataList = biomeDataList;
 
         sampleCentre = coord * meshSettings.meshWorldSize / meshSettings.meshScale;
         Vector2 position = coord * meshSettings.meshWorldSize;
         bounds = new Bounds(position, Vector2.one * meshSettings.meshWorldSize);
-       
-     
 
 
         meshObject = new GameObject("Terrain Chunk " + coord);
@@ -78,7 +76,7 @@ public class TerrainChunk {
 
     public void Load(Action<GameObject> onLoaded) {
         ThreadedDataRequester.RequestData(
-            () => HeightMapGenerator.GenerateHeightMap(meshSettings.numVertsPerLine, meshSettings.numVertsPerLine, heightMapSettings, tempSettings, humiditySettings, sampleCentre),
+            () => HeightMapGenerator.GenerateHeightMap(meshSettings.numVertsPerLine, meshSettings.numVertsPerLine, heightMapSettings, tempSettings, humiditySettings, biomeDataList, sampleCentre),
             data => {
                 OnHeightMapReceived(data);
                 onLoaded?.Invoke(meshObject); // Invoke the callback after height map is processed

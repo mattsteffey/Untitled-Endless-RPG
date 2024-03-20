@@ -22,32 +22,30 @@ public class TerrainGenerator : MonoBehaviour {
 
     public Transform ghostTransform;
     public Transform playerTransform;
-
+ 
     float meshWorldSize;
     int chunksVisibleInViewDst;
     Vector3 currentOffset;
     Vector3 totalOffset;
 
+    List<BiomeMaps.BiomeData> biomeDataList;
 
     Dictionary<Vector2, TerrainChunk> terrainChunkDictionary = new Dictionary<Vector2, TerrainChunk>();
     List<TerrainChunk> visibleTerrainChunks = new List<TerrainChunk>();
 
     void Start() {
-
+        biomeDataList = gameObject.GetComponent<BiomeMaps>().ApplyBiomeHeightMaps();
         textureSettings.ApplyToMaterial(mapMaterial);
-        textureSettings.UpdateMeshHeights(mapMaterial, heightMapSettings.minHeight, heightMapSettings.maxHeight);
-
+        //textureSettings.UpdateMeshHeights(mapMaterial, heightMapSettings.minHeight, heightMapSettings.maxHeight); Keep this here, not sure what it was doing but I think it was pre shader update thing.
         float maxViewDst = detailLevels[detailLevels.Length - 1].visibleDstThreshold;
         meshWorldSize = meshSettings.meshWorldSize;
         chunksVisibleInViewDst = Mathf.RoundToInt(maxViewDst / meshWorldSize);
-
         UpdateVisibleChunks();
         }
 
+
+        
     void FixedUpdate() {
-
-      
-
         // Checks if the player meets the threshold distance from 0,0
         if (new Vector2(playerTransform.position.x, playerTransform.position.z).sqrMagnitude > sqrViewerMoveThresholdForChunkUpdate) {
             foreach (TerrainChunk chunk in visibleTerrainChunks) {
@@ -60,9 +58,7 @@ public class TerrainGenerator : MonoBehaviour {
             playerTransform.position = new Vector3(0, playerTransform.position.y, 0);
             gameObject.transform.position -= currentOffset;
             UpdateVisibleChunks();
-
-           
-                    }
+            }
         }
 
     void UpdateVisibleChunks() {
@@ -77,7 +73,6 @@ public class TerrainGenerator : MonoBehaviour {
         int playerCurrentChunkCoordX = Mathf.RoundToInt(playerTransform.position.x / meshWorldSize);
         int playerCurrentChunkCoordY = Mathf.RoundToInt(playerTransform.position.z / meshWorldSize);
 
-
         for (int yOffset = -chunksVisibleInViewDst; yOffset <= chunksVisibleInViewDst; yOffset++) {
             for (int xOffset = -chunksVisibleInViewDst; xOffset <= chunksVisibleInViewDst; xOffset++) {
                 Vector2 viewedChunkCoord = new Vector2(ghostCurrentChunkCoordX + xOffset, ghostCurrentChunkCoordY + yOffset);
@@ -86,7 +81,7 @@ public class TerrainGenerator : MonoBehaviour {
                         terrainChunkDictionary[viewedChunkCoord].UpdateTerrainChunk();
                         }
                     else {
-                        TerrainChunk newChunk = new TerrainChunk(viewedChunkCoord, heightMapSettings, tempSettings, humiditySettings, meshSettings, detailLevels, colliderLODIndex, transform, ghostTransform, mapMaterial);
+                        TerrainChunk newChunk = new TerrainChunk(viewedChunkCoord, heightMapSettings, tempSettings, humiditySettings, meshSettings, biomeDataList, detailLevels, colliderLODIndex, transform, ghostTransform, mapMaterial);
                         terrainChunkDictionary.Add(viewedChunkCoord, newChunk);
                         newChunk.onVisibilityChanged += OnTerrainChunkVisibilityChanged;
                         newChunk.Load((meshObject) => TerrainLoadComplete(meshObject));
@@ -95,7 +90,6 @@ public class TerrainGenerator : MonoBehaviour {
                 }
             }
         }
-
 
 
     public void TerrainLoadComplete(GameObject loadedChunk) {

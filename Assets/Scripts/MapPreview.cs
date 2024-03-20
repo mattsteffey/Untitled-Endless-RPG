@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class MapPreview : MonoBehaviour {
 
@@ -15,6 +16,7 @@ public class MapPreview : MonoBehaviour {
     public HeightMapSettings heightMapSettings;
     public HeightMapSettings tempMapSettings;
     public HeightMapSettings humidityMapSettings;
+    public List<BiomeMaps.BiomeData> biomeDataList;
 
     public TextureData textureData;
 
@@ -32,7 +34,7 @@ public class MapPreview : MonoBehaviour {
     public void DrawMapInEditor() {
         textureData.ApplyToMaterial(terrainMaterial);
         textureData.UpdateMeshHeights(terrainMaterial, heightMapSettings.minHeight, heightMapSettings.maxHeight);
-        HeightMap heightMap = HeightMapGenerator.GenerateHeightMap(meshSettings.numVertsPerLine, meshSettings.numVertsPerLine, heightMapSettings, tempMapSettings, humidityMapSettings, Vector2.zero);
+        HeightMap heightMap = HeightMapGenerator.GenerateHeightMap(meshSettings.numVertsPerLine, meshSettings.numVertsPerLine, heightMapSettings, tempMapSettings, humidityMapSettings, biomeDataList, Vector2.zero);
 
         if (drawMode == DrawMode.NoiseMap) {
             DrawTexture(TextureGenerator.TextureFromHeightMap(heightMap));

@@ -12,61 +12,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cbc832a31fa8664883919f6f7a640de, type: 3}
   m_Name: DefaultTextureSettings
   m_EditorClassIdentifier: 
-  autoUpdate: 1
+  autoUpdate: 0
   layers:
-  - texture: {fileID: 2800000, guid: 9a3b8e3f89dd9e64d98c1fb11a8ad510, type: 3}
-    tint: {r: 0.015686275, g: 0.3529412, b: 0.7254902, a: 0}
-    tintStrength: 0.543
+  - name: Ocean
+    texture: {fileID: 2800000, guid: 9a3b8e3f89dd9e64d98c1fb11a8ad510, type: 3}
+    tint: {r: 0.023362402, g: 0.33712068, b: 0.990566, a: 0}
+    tintStrength: 1
     startHeight: 0
     startTemperature: 0
     startHumidity: 0
     blendStrength: 0
     textureScale: 10
-  - texture: {fileID: 2800000, guid: 9a3b8e3f89dd9e64d98c1fb11a8ad510, type: 3}
-    tint: {r: 1, g: 0.88235295, b: 0.53333336, a: 0}
-    tintStrength: 0.508
+    biomeNoise:
+    - {fileID: 11400000, guid: b7adca90f5dbf614dab003aa5221d602, type: 2}
+  - name: Beach
+    texture: {fileID: 2800000, guid: 9a3b8e3f89dd9e64d98c1fb11a8ad510, type: 3}
+    tint: {r: 0.709, g: 0.6554324, b: 0.22407074, a: 0}
+    tintStrength: 0.52
     startHeight: 0.5
     startTemperature: 0
     startHumidity: 0
     blendStrength: 0
     textureScale: 10
-  - texture: {fileID: 2800000, guid: dfc8743071a41cb40a46cce1284d93d5, type: 3}
-    tint: {r: 0.7075472, g: 0.35692894, b: 0.050062295, a: 0}
-    tintStrength: 0.5
+    biomeNoise:
+    - {fileID: 11400000, guid: 37c62ac75932fcc4f850cb18dbcab971, type: 2}
+  - name: Forest
+    texture: {fileID: 2800000, guid: dfc8743071a41cb40a46cce1284d93d5, type: 3}
+    tint: {r: 0.45882356, g: 0.5254902, b: 0.16078432, a: 1}
+    tintStrength: 0.204
     startHeight: 0.6
     startTemperature: 0
     startHumidity: 0
-    blendStrength: 0.01
+    blendStrength: 0
     textureScale: 10
-  - texture: {fileID: 2800000, guid: dfc8743071a41cb40a46cce1284d93d5, type: 3}
-    tint: {r: 0.04158268, g: 0.5471698, b: 0.018066937, a: 0}
-    tintStrength: 0.5
-    startHeight: 0.543
-    startTemperature: 0.3
+    biomeNoise:
+    - {fileID: 11400000, guid: 6d74b169b4fee4f4c991e57479394559, type: 2}
+  - name: Mountain
+    texture: {fileID: 2800000, guid: 485898afada521b448b4b6f9a07b839d, type: 3}
+    tint: {r: 0.4919455, g: 0.5188679, b: 0.49299717, a: 0}
+    tintStrength: 0.159
+    startHeight: 0.8
+    startTemperature: 0
     startHumidity: 0
-    blendStrength: 0.01
+    blendStrength: 0
     textureScale: 10
-  - texture: {fileID: 2800000, guid: dfc8743071a41cb40a46cce1284d93d5, type: 3}
-    tint: {r: 0.024644041, g: 0.3679245, b: 0.008677464, a: 1}
-    tintStrength: 0.5
-    startHeight: 0.6
-    startTemperature: 0.245
-    startHumidity: 0.206
-    blendStrength: 0.01
-    textureScale: 10
-  - texture: {fileID: 2800000, guid: 485898afada521b448b4b6f9a07b839d, type: 3}
-    tint: {r: 0.41799998, g: 0.41799998, b: 0.41799998, a: 0}
-    tintStrength: 0.206
-    startHeight: 0.864
-    startTemperature: 0.355
-    startHumidity: 0
-    blendStrength: 0.154
-    textureScale: 10
-  - texture: {fileID: 2800000, guid: 485898afada521b448b4b6f9a07b839d, type: 3}
-    tint: {r: 1, g: 1, b: 1, a: 0}
-    tintStrength: 1
-    startHeight: 0.787
-    startTemperature: 0.623
-    startHumidity: 0.037
-    blendStrength: 0.112
-    textureScale: 10
+    biomeNoise:
+    - {fileID: 11400000, guid: 41d2aa677ffe0b54d9bac7c0723cb835, type: 2}
