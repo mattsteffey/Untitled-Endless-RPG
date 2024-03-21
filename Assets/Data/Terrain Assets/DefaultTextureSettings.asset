@@ -32,7 +32,7 @@ MonoBehaviour:
     startHeight: 0.5
     startTemperature: 0
     startHumidity: 0
-    blendStrength: 0
+    blendStrength: 0.1
     textureScale: 10
     biomeNoise:
     - {fileID: 11400000, guid: 37c62ac75932fcc4f850cb18dbcab971, type: 2}
@@ -43,7 +43,7 @@ MonoBehaviour:
     startHeight: 0.6
     startTemperature: 0
     startHumidity: 0
-    blendStrength: 0
+    blendStrength: 0.1
     textureScale: 10
     biomeNoise:
     - {fileID: 11400000, guid: 6d74b169b4fee4f4c991e57479394559, type: 2}
@@ -54,7 +54,7 @@ MonoBehaviour:
     startHeight: 0.6001
     startTemperature: 0
     startHumidity: 0.5
-    blendStrength: 0
+    blendStrength: 0.1
     textureScale: 10
     biomeNoise:
     - {fileID: 11400000, guid: 27bf7ff91f622b84c8d9bba85ba51725, type: 2}
@@ -65,7 +65,7 @@ MonoBehaviour:
     startHeight: 0.8
     startTemperature: 0
     startHumidity: 0
-    blendStrength: 0
+    blendStrength: 0.1
     textureScale: 10
     biomeNoise:
     - {fileID: 11400000, guid: 41d2aa677ffe0b54d9bac7c0723cb835, type: 2}

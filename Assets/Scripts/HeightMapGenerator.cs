@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor.ShaderKeywordFilter;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public static class HeightMapGenerator {
+
 
     public static HeightMap GenerateHeightMap(int width, int height, HeightMapSettings heightSettings, HeightMapSettings tempSettings, HeightMapSettings humiditySettings, List<BiomeMaps.BiomeData> biomeDataList, Vector2 sampleCentre) {
         AnimationCurve heightCurve_threadsafe = new AnimationCurve(heightSettings.heightCurve.keys);
@@ -15,6 +18,8 @@ public static class HeightMapGenerator {
         float[,] tempValues = Noise.GenerateNoiseMap(width, height, tempSettings.noiseSettings, sampleCentre);
         float[,] humidityValues = Noise.GenerateNoiseMap(width, height, humiditySettings.noiseSettings, sampleCentre);
 
+       
+
         // Creates a list of different biome Noise Maps
         List<float[,]> biomeNoiseValues = new List<float[,]>();
         for (int i = 0; i < biomeDataList.Count; i++) {
@@ -25,11 +30,17 @@ public static class HeightMapGenerator {
 
 
 
+
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
-
+                
                 float biomeHeightValue = new float();
                 float biomeHeightMultiplier = new float();
+
+                float oldBiomeValue = -1;
+                float currentBiomeValue = -2;
+
+               
 
                 for (int k = 0; k < biomeDataList.Count; k++) {
                     if (k < biomeDataList.Count) {
@@ -38,31 +49,27 @@ public static class HeightMapGenerator {
                                 if (humidityValues[i, j] >= biomeDataList[k].startHumidity) {
                                     biomeHeightValue = biomeNoiseValues[k][i, j];
                                     biomeHeightMultiplier = biomeDataList[k].biomeHeightMaps[0].heightMultiplier;
+                                    currentBiomeValue = k;
+                                    //Debug.Log(k + " " + currentBiomeValue+ "  "+ oldBiomeValue);
                                     }
-                                  }
                                 }
                             }
-
-
-                    //if (k == biomeDataList.Count - 1) {
-                    //    if (heightValues[i, j] * heightCurve_threadsafe.Evaluate(heightValues[i, j]) >= biomeDataList[k].startHeight) {
-                    //        //Debug.Log("This is the highest Biome: " + heightValues[i, j] + " at startHeight " + biomeDataList[k].startHeight);
-                    //        biomeHeightValue = biomeNoiseValues[k][i, j];
-                    //        biomeHeightMultiplier = biomeDataList[k].biomeHeightMaps[0].heightMultiplier;
-                    //        }
-                    //    }
+                        }
                     }
 
+                if (oldBiomeValue != currentBiomeValue) {
+                    if (i > 0 && i < width && j > 0 && j < height) {
 
-                //Debug.Log("heightValues: " + heightValues[i, j] + "  biomeHeightValue: " + biomeHeightValue + "  biomeHeightMultiplier: " + biomeHeightMultiplier);
+                        }
+                    }
+
+                oldBiomeValue = currentBiomeValue;
 
 
 
 
 
                 heightValues[i, j] *= heightCurve_threadsafe.Evaluate(heightValues[i, j]) * heightSettings.heightMultiplier + (biomeHeightValue * biomeHeightMultiplier);
-                //heightValues[i, j] += heightCurve_threadsafe.Evaluate(biomeHeightValue) * biomeHeightMultiplier;
-
 
                 if (heightValues[i, j] > maxValue) {
                     maxValue = heightValues[i, j];
@@ -70,16 +77,11 @@ public static class HeightMapGenerator {
                 if (heightValues[i, j] < minValue) {
                     minValue = heightValues[i, j];
                     }
-
-
-
-
                 }
             }
 
         return new HeightMap(heightValues, tempValues, humidityValues, minValue, maxValue);
         }
-
     }
 
 public struct HeightMap {
